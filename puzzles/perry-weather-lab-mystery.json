@@ -1,0 +1,109 @@
+{
+  "id": "perry-weather-lab-mystery",
+  "kid": "perry",
+  "theme": "Weather Lab",
+  "title": "🌦️ The Weather Lab Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella are running experiments in the weather lab, and each one has a favorite station AND a favorite kind of day to watch out the window. Can you sort them all out?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "experiment",
+      "cols": [
+        {
+          "id": "volcano",
+          "label": "Volcano",
+          "icon": "volcano"
+        },
+        {
+          "id": "magnets",
+          "label": "Magnets",
+          "icon": "magnets"
+        },
+        {
+          "id": "plant-growth",
+          "label": "Plant Growth",
+          "icon": "plant-growth"
+        },
+        {
+          "id": "stargazing",
+          "label": "Stargazing",
+          "icon": "stargazing"
+        }
+      ],
+      "solution": {
+        "whiskers": "volcano",
+        "bella": "magnets",
+        "luna": "plant-growth",
+        "oliver": "stargazing"
+      }
+    },
+    {
+      "colCategory": "weather",
+      "cols": [
+        {
+          "id": "sunny",
+          "label": "Sunny",
+          "icon": "sunny"
+        },
+        {
+          "id": "rainy",
+          "label": "Rainy",
+          "icon": "rainy"
+        },
+        {
+          "id": "cloudy",
+          "label": "Cloudy",
+          "icon": "cloudy"
+        },
+        {
+          "id": "snowy",
+          "label": "Snowy",
+          "icon": "snowy"
+        }
+      ],
+      "solution": {
+        "whiskers": "sunny",
+        "oliver": "cloudy",
+        "luna": "rainy",
+        "bella": "snowy"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's experiment is not Volcano.",
+    "Luna's experiment is not Volcano, Magnets, or Stargazing.",
+    "Bella's favorite weather is not Sunny or Rainy.",
+    "Whoever's favorite weather is Cloudy loves Stargazing.",
+    "Whoever's favorite weather is Snowy loves Magnets.",
+    "Oliver's favorite weather is not Snowy.",
+    "Luna's favorite weather is Rainy."
+  ],
+  "hints": [
+    "Clue 2 rules out three experiments for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's favorite weather directly: Rainy. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link a kind of weather straight to an experiment. Once you know a cat's experiment, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two weather choices left. Try combining it with clue 5 (Snowy -> Magnets) to see which one fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's weather."
+  ]
+}

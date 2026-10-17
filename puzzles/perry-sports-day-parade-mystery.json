@@ -1,0 +1,109 @@
+{
+  "id": "perry-sports-day-parade-mystery",
+  "kid": "perry",
+  "theme": "Sports Day Parade",
+  "title": "🎉 The Sports Day Parade Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella are marching in the Sports Day parade, each showing off their favorite sport AND waving a favorite colored flag. Can you match every cat to both?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "sport",
+      "cols": [
+        {
+          "id": "swimming",
+          "label": "Swimming",
+          "icon": "swimming"
+        },
+        {
+          "id": "soccer",
+          "label": "Soccer",
+          "icon": "soccer"
+        },
+        {
+          "id": "gymnastics",
+          "label": "Gymnastics",
+          "icon": "gymnastics"
+        },
+        {
+          "id": "basketball",
+          "label": "Basketball",
+          "icon": "basketball"
+        }
+      ],
+      "solution": {
+        "whiskers": "swimming",
+        "bella": "soccer",
+        "luna": "gymnastics",
+        "oliver": "basketball"
+      }
+    },
+    {
+      "colCategory": "color",
+      "cols": [
+        {
+          "id": "red",
+          "label": "Red",
+          "icon": "red"
+        },
+        {
+          "id": "blue",
+          "label": "Blue",
+          "icon": "blue"
+        },
+        {
+          "id": "yellow",
+          "label": "Yellow",
+          "icon": "yellow"
+        },
+        {
+          "id": "green",
+          "label": "Green",
+          "icon": "green"
+        }
+      ],
+      "solution": {
+        "whiskers": "red",
+        "oliver": "yellow",
+        "luna": "blue",
+        "bella": "green"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's sport is not Swimming.",
+    "Luna's sport is not Swimming, Soccer, or Basketball.",
+    "Bella's flag is not Red or Blue.",
+    "Whoever's flag is Yellow loves Basketball.",
+    "Whoever's flag is Green loves Soccer.",
+    "Oliver's flag is not Green.",
+    "Luna's flag is Blue."
+  ],
+  "hints": [
+    "Clue 2 rules out three sports for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's flag directly: Blue. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link a flag color straight to a sport. Once you know a cat's sport, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two flag colors left. Try combining it with clue 5 (Green -> Soccer) to see which flag fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's flag."
+  ]
+}

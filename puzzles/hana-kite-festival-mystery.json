@@ -1,0 +1,74 @@
+{
+  "id": "hana-kite-festival-mystery",
+  "kid": "hana",
+  "theme": "Kite Festival",
+  "title": "🪁 The Kite Festival Mystery",
+  "intro": "Panda, Rabbit, Elephant, and Otter each flew their favorite colored kite at the festival -- but a gust of wind blew all the kite tags off! Help figure out whose kite is which color.",
+  "characters": [
+    {
+      "id": "panda",
+      "label": "Panda",
+      "icon": "panda"
+    },
+    {
+      "id": "rabbit",
+      "label": "Rabbit",
+      "icon": "rabbit"
+    },
+    {
+      "id": "elephant",
+      "label": "Elephant",
+      "icon": "elephant"
+    },
+    {
+      "id": "otter",
+      "label": "Otter",
+      "icon": "otter"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "color",
+      "cols": [
+        {
+          "id": "red",
+          "label": "Red",
+          "icon": "red"
+        },
+        {
+          "id": "blue",
+          "label": "Blue",
+          "icon": "blue"
+        },
+        {
+          "id": "yellow",
+          "label": "Yellow",
+          "icon": "yellow"
+        },
+        {
+          "id": "green",
+          "label": "Green",
+          "icon": "green"
+        }
+      ],
+      "solution": {
+        "otter": "red",
+        "panda": "blue",
+        "rabbit": "green",
+        "elephant": "yellow"
+      }
+    }
+  ],
+  "clues": [
+    "Otter's kite is Red.",
+    "Elephant's kite is not Blue or Green.",
+    "Rabbit's kite is not Blue.",
+    "Panda's kite is not Green."
+  ],
+  "hints": [
+    "Clue 1 just tells you Otter's answer outright -- mark a check in Otter's Red box to get started.",
+    "Now that Red is taken, clue 2 rules out two colors for Elephant at once. What's the only one left for Elephant?",
+    "Red and Yellow are both gone now, so only Blue and Green are left for Panda and Rabbit. Clue 3 says Rabbit isn't Blue -- so what must Rabbit be?",
+    "Whatever's left over for Panda once Rabbit is filled in is Panda's answer -- clue 4 just confirms it."
+  ]
+}

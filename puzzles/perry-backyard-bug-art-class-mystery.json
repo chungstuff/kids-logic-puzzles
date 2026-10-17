@@ -1,0 +1,109 @@
+{
+  "id": "perry-backyard-bug-art-class-mystery",
+  "kid": "perry",
+  "theme": "Backyard Bug Art Class",
+  "title": "🦋 The Backyard Bug Art Class Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella set up easels in the backyard, each one sketching their favorite bug AND using their own favorite way to create it. Can you match every cat to their bug and their medium?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "bug",
+      "cols": [
+        {
+          "id": "ladybug",
+          "label": "Ladybug",
+          "icon": "ladybug"
+        },
+        {
+          "id": "butterfly",
+          "label": "Butterfly",
+          "icon": "butterfly"
+        },
+        {
+          "id": "bee",
+          "label": "Bee",
+          "icon": "bee"
+        },
+        {
+          "id": "snail",
+          "label": "Snail",
+          "icon": "snail"
+        }
+      ],
+      "solution": {
+        "whiskers": "ladybug",
+        "bella": "butterfly",
+        "luna": "bee",
+        "oliver": "snail"
+      }
+    },
+    {
+      "colCategory": "medium",
+      "cols": [
+        {
+          "id": "painting",
+          "label": "Painting",
+          "icon": "painting"
+        },
+        {
+          "id": "sculpture",
+          "label": "Sculpture",
+          "icon": "sculpture"
+        },
+        {
+          "id": "drawing",
+          "label": "Drawing",
+          "icon": "drawing"
+        },
+        {
+          "id": "collage",
+          "label": "Collage",
+          "icon": "collage"
+        }
+      ],
+      "solution": {
+        "whiskers": "painting",
+        "oliver": "drawing",
+        "luna": "sculpture",
+        "bella": "collage"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's favorite bug is not the Ladybug.",
+    "Luna's favorite bug is not the Ladybug, Butterfly, or Snail.",
+    "Bella's art medium is not Painting or Sculpture.",
+    "Whoever loves Drawing has the Snail as their favorite bug.",
+    "Whoever loves Collage has the Butterfly as their favorite bug.",
+    "Oliver does not love Collage.",
+    "Luna's art medium is Sculpture."
+  ],
+  "hints": [
+    "Clue 2 rules out three bugs for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's art medium directly: Sculpture. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link an art medium straight to a bug. Once you know a cat's bug, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two mediums left. Try combining it with clue 5 (Collage -> Butterfly) to see which one fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's medium."
+  ]
+}

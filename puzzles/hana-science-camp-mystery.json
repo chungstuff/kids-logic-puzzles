@@ -1,0 +1,74 @@
+{
+  "id": "hana-science-camp-mystery",
+  "kid": "hana",
+  "theme": "Science Camp",
+  "title": "🧪 The Science Camp Mystery",
+  "intro": "Panda, Rabbit, Elephant, and Otter signed up for every station at Science Camp -- but the sign-up sheet got rained on and all the names smudged away! Can you figure out which camper is at which station?",
+  "characters": [
+    {
+      "id": "panda",
+      "label": "Panda",
+      "icon": "panda"
+    },
+    {
+      "id": "rabbit",
+      "label": "Rabbit",
+      "icon": "rabbit"
+    },
+    {
+      "id": "elephant",
+      "label": "Elephant",
+      "icon": "elephant"
+    },
+    {
+      "id": "otter",
+      "label": "Otter",
+      "icon": "otter"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "experiment",
+      "cols": [
+        {
+          "id": "volcano",
+          "label": "Volcano",
+          "icon": "volcano"
+        },
+        {
+          "id": "magnets",
+          "label": "Magnets",
+          "icon": "magnets"
+        },
+        {
+          "id": "plant-growth",
+          "label": "Plant Growth",
+          "icon": "plant-growth"
+        },
+        {
+          "id": "stargazing",
+          "label": "Stargazing",
+          "icon": "stargazing"
+        }
+      ],
+      "solution": {
+        "elephant": "volcano",
+        "panda": "magnets",
+        "otter": "plant-growth",
+        "rabbit": "stargazing"
+      }
+    }
+  ],
+  "clues": [
+    "Elephant's station is Volcano.",
+    "Panda's station is not Plant Growth or Stargazing.",
+    "Otter's station is not Stargazing.",
+    "Rabbit's station is not Plant Growth."
+  ],
+  "hints": [
+    "Clue 1 hands you Elephant's answer outright: Volcano. Mark it and cross Elephant off everywhere else.",
+    "Now that Volcano is taken, clue 2 rules out two more stations for Panda at once -- only one station is left for Panda. Which one?",
+    "Magnets and Volcano are gone, so only Plant Growth and Stargazing are left for Otter and Rabbit. Clue 3 says Otter isn't Stargazing -- so what must Otter be?",
+    "Whatever's left over for Rabbit once Otter is filled in is Rabbit's answer -- clue 4 just double-checks it for you."
+  ]
+}

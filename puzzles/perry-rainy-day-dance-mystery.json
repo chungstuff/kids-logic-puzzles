@@ -1,0 +1,109 @@
+{
+  "id": "perry-rainy-day-dance-mystery",
+  "kid": "perry",
+  "theme": "Rainy Day Dance",
+  "title": "🌧️ The Rainy Day Dance Mystery",
+  "intro": "The recital got rained out, so Whiskers, Luna, Oliver, and Bella are dancing right in the studio window, each one watching for their own favorite kind of weather while practicing their own favorite dance. Can you match it all up?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "weather",
+      "cols": [
+        {
+          "id": "sunny",
+          "label": "Sunny",
+          "icon": "sunny"
+        },
+        {
+          "id": "rainy",
+          "label": "Rainy",
+          "icon": "rainy"
+        },
+        {
+          "id": "cloudy",
+          "label": "Cloudy",
+          "icon": "cloudy"
+        },
+        {
+          "id": "snowy",
+          "label": "Snowy",
+          "icon": "snowy"
+        }
+      ],
+      "solution": {
+        "whiskers": "sunny",
+        "bella": "rainy",
+        "luna": "cloudy",
+        "oliver": "snowy"
+      }
+    },
+    {
+      "colCategory": "dance",
+      "cols": [
+        {
+          "id": "ballet",
+          "label": "Ballet",
+          "icon": "ballet"
+        },
+        {
+          "id": "tap",
+          "label": "Tap",
+          "icon": "tap"
+        },
+        {
+          "id": "jazz",
+          "label": "Jazz",
+          "icon": "jazz"
+        },
+        {
+          "id": "hip-hop",
+          "label": "Hip-Hop",
+          "icon": "hip-hop"
+        }
+      ],
+      "solution": {
+        "whiskers": "ballet",
+        "oliver": "jazz",
+        "luna": "tap",
+        "bella": "hip-hop"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's favorite weather is not Sunny.",
+    "Luna's favorite weather is not Sunny, Rainy, or Snowy.",
+    "Bella's dance is not Ballet or Tap.",
+    "Whoever loves Jazz has Snowy as their favorite weather.",
+    "Whoever loves Hip-Hop has Rainy as their favorite weather.",
+    "Oliver's dance is not Hip-Hop.",
+    "Luna's dance is Tap."
+  ],
+  "hints": [
+    "Clue 2 rules out three kinds of weather for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's dance directly: Tap. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link a dance straight to a kind of weather. Once you know a cat's weather, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two dances left. Try combining it with clue 5 (Hip-Hop -> Rainy) to see which one fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's dance."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "hana-backyard-bug-hunt-mystery",
+  "kid": "hana",
+  "theme": "Backyard Bug Hunt",
+  "title": "🐞 The Backyard Bug Hunt Mystery",
+  "intro": "Panda, Rabbit, Elephant, and Otter spent the afternoon bug-hunting in the garden, and each one found a favorite creepy-crawly -- but their bug jars got mixed up on the picnic table! Sort out whose bug is whose.",
+  "characters": [
+    {
+      "id": "panda",
+      "label": "Panda",
+      "icon": "panda"
+    },
+    {
+      "id": "rabbit",
+      "label": "Rabbit",
+      "icon": "rabbit"
+    },
+    {
+      "id": "elephant",
+      "label": "Elephant",
+      "icon": "elephant"
+    },
+    {
+      "id": "otter",
+      "label": "Otter",
+      "icon": "otter"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "bug",
+      "cols": [
+        {
+          "id": "ladybug",
+          "label": "Ladybug",
+          "icon": "ladybug"
+        },
+        {
+          "id": "butterfly",
+          "label": "Butterfly",
+          "icon": "butterfly"
+        },
+        {
+          "id": "bee",
+          "label": "Bee",
+          "icon": "bee"
+        },
+        {
+          "id": "snail",
+          "label": "Snail",
+          "icon": "snail"
+        }
+      ],
+      "solution": {
+        "panda": "ladybug",
+        "rabbit": "snail",
+        "elephant": "butterfly",
+        "otter": "bee"
+      }
+    }
+  ],
+  "clues": [
+    "Panda's favorite bug is the Ladybug.",
+    "Rabbit's favorite bug is not the Butterfly or the Bee.",
+    "Elephant's favorite bug is not the Bee.",
+    "Otter's favorite bug is not the Butterfly."
+  ],
+  "hints": [
+    "Clue 1 just tells you Panda's answer outright -- mark a check in Panda's Ladybug box to get started.",
+    "Now that Ladybug is taken, clue 2 rules out two bugs for Rabbit at once. What's the only one left for Rabbit?",
+    "Ladybug and Snail are both gone now, so only Butterfly and Bee are left for Elephant and Otter. Clue 3 says Elephant isn't the Bee -- so what must Elephant be?",
+    "Whatever's left over for Otter once Elephant is filled in is Otter's answer -- clue 4 just confirms it."
+  ]
+}

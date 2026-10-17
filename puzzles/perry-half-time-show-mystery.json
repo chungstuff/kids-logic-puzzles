@@ -1,0 +1,109 @@
+{
+  "id": "perry-half-time-show-mystery",
+  "kid": "perry",
+  "theme": "Half-Time Show",
+  "title": "🏈 The Half-Time Show Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella are stars of the big game -- by day they play a favorite sport, and at half-time they each play an instrument in the band! Can you match them all up?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "sport",
+      "cols": [
+        {
+          "id": "swimming",
+          "label": "Swimming",
+          "icon": "swimming"
+        },
+        {
+          "id": "soccer",
+          "label": "Soccer",
+          "icon": "soccer"
+        },
+        {
+          "id": "gymnastics",
+          "label": "Gymnastics",
+          "icon": "gymnastics"
+        },
+        {
+          "id": "basketball",
+          "label": "Basketball",
+          "icon": "basketball"
+        }
+      ],
+      "solution": {
+        "whiskers": "swimming",
+        "bella": "soccer",
+        "luna": "gymnastics",
+        "oliver": "basketball"
+      }
+    },
+    {
+      "colCategory": "instrument",
+      "cols": [
+        {
+          "id": "piano",
+          "label": "Piano",
+          "icon": "piano"
+        },
+        {
+          "id": "violin",
+          "label": "Violin",
+          "icon": "violin"
+        },
+        {
+          "id": "drums",
+          "label": "Drums",
+          "icon": "drums"
+        },
+        {
+          "id": "guitar",
+          "label": "Guitar",
+          "icon": "guitar"
+        }
+      ],
+      "solution": {
+        "whiskers": "piano",
+        "oliver": "drums",
+        "luna": "violin",
+        "bella": "guitar"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's sport is not Swimming.",
+    "Luna's sport is not Swimming, Soccer, or Basketball.",
+    "Bella does not play Piano or Violin.",
+    "Whoever plays Drums loves Basketball.",
+    "Whoever plays Guitar loves Soccer.",
+    "Oliver does not play Guitar.",
+    "Luna plays Violin."
+  ],
+  "hints": [
+    "Clue 2 rules out three sports for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's instrument directly: Violin. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link an instrument straight to a sport. Once you know a cat's sport, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two instruments left. Try combining it with clue 5 (Guitar -> Soccer) to see which one fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's instrument."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "hana-craft-corner-mystery",
+  "kid": "hana",
+  "theme": "Craft Corner",
+  "title": "🖌️ The Craft Corner Mystery",
+  "intro": "It's a rainy afternoon, and Panda, Rabbit, Elephant, and Otter are all busy making something at the craft table -- but somebody knocked over the name cards! Figure out who's making what.",
+  "characters": [
+    {
+      "id": "panda",
+      "label": "Panda",
+      "icon": "panda"
+    },
+    {
+      "id": "rabbit",
+      "label": "Rabbit",
+      "icon": "rabbit"
+    },
+    {
+      "id": "elephant",
+      "label": "Elephant",
+      "icon": "elephant"
+    },
+    {
+      "id": "otter",
+      "label": "Otter",
+      "icon": "otter"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "medium",
+      "cols": [
+        {
+          "id": "painting",
+          "label": "Painting",
+          "icon": "painting"
+        },
+        {
+          "id": "sculpture",
+          "label": "Sculpture",
+          "icon": "sculpture"
+        },
+        {
+          "id": "drawing",
+          "label": "Drawing",
+          "icon": "drawing"
+        },
+        {
+          "id": "collage",
+          "label": "Collage",
+          "icon": "collage"
+        }
+      ],
+      "solution": {
+        "rabbit": "painting",
+        "panda": "sculpture",
+        "otter": "drawing",
+        "elephant": "collage"
+      }
+    }
+  ],
+  "clues": [
+    "Rabbit's favorite way to create is Painting.",
+    "Panda does not love Drawing or Collage.",
+    "Otter does not love Collage.",
+    "Elephant does not love Drawing."
+  ],
+  "hints": [
+    "Clue 1 just tells you Rabbit's answer outright -- mark a check in Rabbit's Painting box to get started.",
+    "Now that Painting is taken, clue 2 rules out two choices for Panda at once. What's the only one left for Panda?",
+    "Painting and Sculpture are both gone now, so only Drawing and Collage are left for Otter and Elephant. Clue 3 says Otter isn't Collage -- so what must Otter be?",
+    "Whatever's left over for Elephant once Otter is filled in is Elephant's answer -- clue 4 just confirms it."
+  ]
+}

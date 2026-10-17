@@ -1,0 +1,109 @@
+{
+  "id": "perry-music-and-art-festival-mystery",
+  "kid": "perry",
+  "theme": "Music and Art Festival",
+  "title": "🎻 The Music and Art Festival Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella each have a booth at the school festival -- one table for their favorite art medium, and an instrument they play on the little stage next door. Can you match them all up?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "medium",
+      "cols": [
+        {
+          "id": "painting",
+          "label": "Painting",
+          "icon": "painting"
+        },
+        {
+          "id": "sculpture",
+          "label": "Sculpture",
+          "icon": "sculpture"
+        },
+        {
+          "id": "drawing",
+          "label": "Drawing",
+          "icon": "drawing"
+        },
+        {
+          "id": "collage",
+          "label": "Collage",
+          "icon": "collage"
+        }
+      ],
+      "solution": {
+        "whiskers": "painting",
+        "bella": "sculpture",
+        "luna": "drawing",
+        "oliver": "collage"
+      }
+    },
+    {
+      "colCategory": "instrument",
+      "cols": [
+        {
+          "id": "piano",
+          "label": "Piano",
+          "icon": "piano"
+        },
+        {
+          "id": "violin",
+          "label": "Violin",
+          "icon": "violin"
+        },
+        {
+          "id": "drums",
+          "label": "Drums",
+          "icon": "drums"
+        },
+        {
+          "id": "guitar",
+          "label": "Guitar",
+          "icon": "guitar"
+        }
+      ],
+      "solution": {
+        "whiskers": "piano",
+        "oliver": "drums",
+        "luna": "violin",
+        "bella": "guitar"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's art medium is not Painting.",
+    "Luna's art medium is not Painting, Sculpture, or Collage.",
+    "Bella does not play Piano or Violin.",
+    "Whoever plays Drums loves Collage.",
+    "Whoever plays Guitar loves Sculpture.",
+    "Oliver does not play Guitar.",
+    "Luna plays Violin."
+  ],
+  "hints": [
+    "Clue 2 rules out three art mediums for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's instrument directly: Violin. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link an instrument straight to an art medium. Once you know a cat's medium, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two instruments left. Try combining it with clue 5 (Guitar -> Sculpture) to see which one fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's instrument."
+  ]
+}

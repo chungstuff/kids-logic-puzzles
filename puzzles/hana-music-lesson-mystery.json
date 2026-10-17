@@ -1,0 +1,74 @@
+{
+  "id": "hana-music-lesson-mystery",
+  "kid": "hana",
+  "theme": "Music Lesson",
+  "title": "🎵 The Music Lesson Mystery",
+  "intro": "Hedgehog, Raccoon, Koala, and Fox each practice a different instrument after school -- but the music teacher's attendance chart got shuffled! Can you match each friend to their instrument?",
+  "characters": [
+    {
+      "id": "hedgehog",
+      "label": "Hedgehog",
+      "icon": "hedgehog"
+    },
+    {
+      "id": "raccoon",
+      "label": "Raccoon",
+      "icon": "raccoon"
+    },
+    {
+      "id": "koala",
+      "label": "Koala",
+      "icon": "koala"
+    },
+    {
+      "id": "fox",
+      "label": "Fox",
+      "icon": "fox"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "instrument",
+      "cols": [
+        {
+          "id": "piano",
+          "label": "Piano",
+          "icon": "piano"
+        },
+        {
+          "id": "violin",
+          "label": "Violin",
+          "icon": "violin"
+        },
+        {
+          "id": "drums",
+          "label": "Drums",
+          "icon": "drums"
+        },
+        {
+          "id": "guitar",
+          "label": "Guitar",
+          "icon": "guitar"
+        }
+      ],
+      "solution": {
+        "koala": "piano",
+        "hedgehog": "guitar",
+        "raccoon": "violin",
+        "fox": "drums"
+      }
+    }
+  ],
+  "clues": [
+    "Koala plays Piano.",
+    "Hedgehog does not play Violin or Drums.",
+    "Raccoon does not play Drums.",
+    "Fox does not play Violin."
+  ],
+  "hints": [
+    "Clue 1 just tells you Koala's answer outright -- mark a check in Koala's Piano box to get started.",
+    "Now that Piano is taken, clue 2 rules out two instruments for Hedgehog at once. What's the only one left for Hedgehog?",
+    "Piano and Guitar are both gone now, so only Violin and Drums are left for Raccoon and Fox. Clue 3 says Raccoon isn't Drums -- so what must Raccoon be?",
+    "Whatever's left over for Fox once Raccoon is filled in is Fox's answer -- clue 4 just confirms it."
+  ]
+}

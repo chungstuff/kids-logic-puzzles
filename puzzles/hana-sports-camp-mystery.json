@@ -1,0 +1,74 @@
+{
+  "id": "hana-sports-camp-mystery",
+  "kid": "hana",
+  "theme": "Sports Camp",
+  "title": "🏀 The Sports Camp Mystery",
+  "intro": "Hedgehog, Raccoon, Koala, and Fox are spending the week at Sports Camp, and each one has a favorite activity -- but the cabin counselor mixed up the clipboard! Help sort out who loves what.",
+  "characters": [
+    {
+      "id": "hedgehog",
+      "label": "Hedgehog",
+      "icon": "hedgehog"
+    },
+    {
+      "id": "raccoon",
+      "label": "Raccoon",
+      "icon": "raccoon"
+    },
+    {
+      "id": "koala",
+      "label": "Koala",
+      "icon": "koala"
+    },
+    {
+      "id": "fox",
+      "label": "Fox",
+      "icon": "fox"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "sport",
+      "cols": [
+        {
+          "id": "swimming",
+          "label": "Swimming",
+          "icon": "swimming"
+        },
+        {
+          "id": "soccer",
+          "label": "Soccer",
+          "icon": "soccer"
+        },
+        {
+          "id": "gymnastics",
+          "label": "Gymnastics",
+          "icon": "gymnastics"
+        },
+        {
+          "id": "basketball",
+          "label": "Basketball",
+          "icon": "basketball"
+        }
+      ],
+      "solution": {
+        "raccoon": "swimming",
+        "hedgehog": "basketball",
+        "fox": "soccer",
+        "koala": "gymnastics"
+      }
+    }
+  ],
+  "clues": [
+    "Raccoon's favorite sport is Swimming.",
+    "Hedgehog does not love Soccer or Gymnastics.",
+    "Fox does not love Gymnastics.",
+    "Koala does not love Soccer."
+  ],
+  "hints": [
+    "Clue 1 just tells you Raccoon's answer outright -- mark a check in Raccoon's Swimming box to get started.",
+    "Now that Swimming is taken, clue 2 rules out two sports for Hedgehog at once. What's the only sport left for Hedgehog?",
+    "Swimming and Basketball are both gone now, so only Soccer and Gymnastics are left for Fox and Koala. Clue 3 says Fox isn't Gymnastics -- so what must Fox be?",
+    "Whatever's left over for Koala once Fox is filled in is Koala's answer -- clue 4 just confirms it."
+  ]
+}

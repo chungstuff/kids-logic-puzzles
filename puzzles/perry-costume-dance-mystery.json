@@ -1,0 +1,109 @@
+{
+  "id": "perry-costume-dance-mystery",
+  "kid": "perry",
+  "theme": "Costume Dance",
+  "title": "💃 The Costume Dance Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella are getting dressed for the costume dance recital -- each one has a favorite dance style AND a favorite costume color. Can you figure out who's wearing what?",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "dance",
+      "cols": [
+        {
+          "id": "ballet",
+          "label": "Ballet",
+          "icon": "ballet"
+        },
+        {
+          "id": "tap",
+          "label": "Tap",
+          "icon": "tap"
+        },
+        {
+          "id": "jazz",
+          "label": "Jazz",
+          "icon": "jazz"
+        },
+        {
+          "id": "hip-hop",
+          "label": "Hip-Hop",
+          "icon": "hip-hop"
+        }
+      ],
+      "solution": {
+        "whiskers": "ballet",
+        "bella": "tap",
+        "luna": "jazz",
+        "oliver": "hip-hop"
+      }
+    },
+    {
+      "colCategory": "color",
+      "cols": [
+        {
+          "id": "red",
+          "label": "Red",
+          "icon": "red"
+        },
+        {
+          "id": "blue",
+          "label": "Blue",
+          "icon": "blue"
+        },
+        {
+          "id": "yellow",
+          "label": "Yellow",
+          "icon": "yellow"
+        },
+        {
+          "id": "green",
+          "label": "Green",
+          "icon": "green"
+        }
+      ],
+      "solution": {
+        "whiskers": "red",
+        "oliver": "yellow",
+        "luna": "blue",
+        "bella": "green"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver's dance is not Ballet.",
+    "Luna's dance is not Ballet, Tap, or Hip-Hop.",
+    "Bella's costume is not Red or Blue.",
+    "Whoever's costume is Yellow loves Hip-Hop.",
+    "Whoever's costume is Green loves Tap.",
+    "Oliver's costume is not Green.",
+    "Luna's costume is Blue."
+  ],
+  "hints": [
+    "Clue 2 rules out three dances for Luna all at once -- whatever's left over is her answer. Start there.",
+    "Clue 7 tells you Luna's costume color directly: Blue. Mark that one with confidence!",
+    "Clues 4 and 5 don't name a cat -- they link a costume color straight to a dance. Once you know a cat's dance, check whether it matches either of those clues.",
+    "Clue 3 narrows Bella down to just two costume colors left. Try combining it with clue 5 (Green -> Tap) to see which one fits Bella.",
+    "Once Bella and Luna are settled, clue 1 and the leftovers sort out Whiskers and Oliver -- use clue 6 last to confirm Oliver's costume color."
+  ]
+}

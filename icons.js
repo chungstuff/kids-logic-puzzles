@@ -58,5 +58,18 @@ export const ICONS = {
   red: '<circle cx="20" cy="20" r="13" fill="#D9534F"/>',
   blue: '<circle cx="20" cy="20" r="13" fill="#4F9BD9"/>',
   yellow: '<circle cx="20" cy="20" r="13" fill="#E8A23C"/>',
-  green: '<circle cx="20" cy="20" r="13" fill="#6E9A5A"/>'
+  green: '<circle cx="20" cy="20" r="13" fill="#6E9A5A"/>',
+
+  // --- New additions: weather & bugs (first real content week, 2026-10-19) ---
+  // --- Weather: Weather Watchers (Hana) / Weather Lab Mystery & Rainy Day Dance Mystery (Perry) ---
+  sunny: '<circle cx="20" cy="20" r="9" fill="#E8A23C"/><path d="M20 4 L20 9 M20 31 L20 36 M4 20 L9 20 M31 20 L36 20 M9 9 L12.5 12.5 M27.5 27.5 L31 31 M9 31 L12.5 27.5 M27.5 12.5 L31 9" stroke="#E8A23C" stroke-width="2.4" stroke-linecap="round"/>',
+  rainy: '<ellipse cx="20" cy="16" rx="13" ry="8" fill="#A9B4BD"/><path d="M13 28 L11 34 M20 28 L18 34 M27 28 L25 34" stroke="#4F9BD9" stroke-width="2.4" stroke-linecap="round"/>',
+  cloudy: '<ellipse cx="14" cy="20" rx="9" ry="7" fill="#C9C4C0"/><ellipse cx="24" cy="18" rx="11" ry="9" fill="#D9D4D0"/><ellipse cx="20" cy="24" rx="12" ry="6" fill="#D9D4D0"/>',
+  snowy: '<ellipse cx="20" cy="15" rx="12" ry="7" fill="#B9C3CB"/><circle cx="13" cy="28" r="2" fill="#fff" stroke="#A9B4BD"/><circle cx="20" cy="31" r="2" fill="#fff" stroke="#A9B4BD"/><circle cx="27" cy="28" r="2" fill="#fff" stroke="#A9B4BD"/>',
+
+  // --- Bugs: Backyard Bug Hunt (Hana) / Backyard Bug Art Class (Perry) ---
+  ladybug: '<ellipse cx="20" cy="23" rx="13" ry="11" fill="#D9534F"/><path d="M20 12 L20 34" stroke="#2A2640" stroke-width="1.2"/><circle cx="20" cy="10" r="5" fill="#2A2640"/><circle cx="14" cy="19" r="2" fill="#2A2640"/><circle cx="26" cy="19" r="2" fill="#2A2640"/><circle cx="14" cy="27" r="2" fill="#2A2640"/><circle cx="26" cy="27" r="2" fill="#2A2640"/>',
+  butterfly: '<ellipse cx="11" cy="16" rx="8" ry="6" fill="#E07A3E" transform="rotate(-20 11 16)"/><ellipse cx="29" cy="16" rx="8" ry="6" fill="#E07A3E" transform="rotate(20 29 16)"/><ellipse cx="12" cy="27" rx="6" ry="5" fill="#D9A441" transform="rotate(-15 12 27)"/><ellipse cx="28" cy="27" rx="6" ry="5" fill="#D9A441" transform="rotate(15 28 27)"/><rect x="19" y="10" width="2" height="24" rx="1" fill="#2A2640"/>',
+  bee: '<ellipse cx="22" cy="24" rx="6" ry="10" fill="#E8A23C" transform="rotate(10 22 24)"/><path d="M17 18 L27 18 M16 23 L28 23 M17 29 L27 29" stroke="#2A2640" stroke-width="2.4"/><ellipse cx="15" cy="16" rx="6" ry="4" fill="#E9F0F4" opacity="0.8" transform="rotate(-20 15 16)"/><ellipse cx="27" cy="14" rx="6" ry="4" fill="#E9F0F4" opacity="0.8" transform="rotate(15 27 14)"/>',
+  snail: '<path d="M8 30 Q6 20 16 20 Q24 20 24 28 Q24 33 18 33 Q14 33 14 29 Q14 26 17 26 Q19 26 19 28" stroke="#8B6A4A" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="22" cy="28" rx="12" ry="7" fill="#6E9A7C"/><path d="M12 24 L8 16 M16 23 L14 15" stroke="#6E9A7C" stroke-width="2" stroke-linecap="round"/>'
 };

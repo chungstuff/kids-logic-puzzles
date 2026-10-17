@@ -1,0 +1,74 @@
+{
+  "id": "hana-weather-watchers-mystery",
+  "kid": "hana",
+  "theme": "Weather Watchers",
+  "title": "⛅ The Weather Watchers Mystery",
+  "intro": "Hedgehog, Raccoon, Koala, and Fox each marked their favorite kind of weather on the Weather Watchers chart -- but the chart got smudged in the rain! Help figure out who likes which kind of day.",
+  "characters": [
+    {
+      "id": "hedgehog",
+      "label": "Hedgehog",
+      "icon": "hedgehog"
+    },
+    {
+      "id": "raccoon",
+      "label": "Raccoon",
+      "icon": "raccoon"
+    },
+    {
+      "id": "koala",
+      "label": "Koala",
+      "icon": "koala"
+    },
+    {
+      "id": "fox",
+      "label": "Fox",
+      "icon": "fox"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "weather",
+      "cols": [
+        {
+          "id": "sunny",
+          "label": "Sunny",
+          "icon": "sunny"
+        },
+        {
+          "id": "rainy",
+          "label": "Rainy",
+          "icon": "rainy"
+        },
+        {
+          "id": "cloudy",
+          "label": "Cloudy",
+          "icon": "cloudy"
+        },
+        {
+          "id": "snowy",
+          "label": "Snowy",
+          "icon": "snowy"
+        }
+      ],
+      "solution": {
+        "fox": "sunny",
+        "raccoon": "rainy",
+        "hedgehog": "snowy",
+        "koala": "cloudy"
+      }
+    }
+  ],
+  "clues": [
+    "Fox's favorite weather is Sunny.",
+    "Raccoon's favorite weather is not Cloudy or Snowy.",
+    "Hedgehog's favorite weather is not Cloudy.",
+    "Koala's favorite weather is not Snowy."
+  ],
+  "hints": [
+    "Clue 1 just tells you Fox's answer outright -- mark a check in Fox's Sunny box to get started.",
+    "Now that Sunny is taken, clue 2 rules out two kinds of weather for Raccoon at once. What's the only one left for Raccoon?",
+    "Sunny and Rainy are both gone now, so only Cloudy and Snowy are left for Hedgehog and Koala. Clue 3 says Hedgehog isn't Cloudy -- so what must Hedgehog be?",
+    "Whatever's left over for Koala once Hedgehog is filled in is Koala's answer -- clue 4 just confirms it."
+  ]
+}
