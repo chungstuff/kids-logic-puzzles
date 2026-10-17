@@ -278,15 +278,33 @@ td.cell[data-state="cross"]:active { box-shadow: 0 1px 0 color-mix(in srgb, var(
    --line pair, which are too close to --bg to read as distinct tappable
    cells. Check/cross states get the same ring so all cell states stay
    visually consistent, and the cross tint is strengthened so it reads as a
-   different cell, not just a different icon color. */
-:root:not([data-theme="light"]) td.cell {
+   different cell, not just a different icon color.
+   Scoped to actual dark mode only (media query + explicit data-theme="dark"),
+   mirroring the --cell-bg-dark/--cell-line-dark definitions above -- an
+   earlier unscoped version of these rules matched in light mode too and,
+   because :root:not([data-theme="light"]) td.cell out-specifies
+   td.cell[data-state="check"], silently painted the checkmark's green
+   background back to white. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) td.cell {
+    background: var(--cell-bg-dark, var(--bg-card));
+    box-shadow: 0 3px 0 var(--cell-line-dark, var(--line)), 0 3px 6px var(--shadow), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
+  }
+  :root:not([data-theme="light"]) td.cell:active {
+    box-shadow: 0 1px 0 var(--cell-line-dark, var(--line)), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
+  }
+  :root:not([data-theme="light"]) td.cell[data-state="cross"] {
+    background: color-mix(in srgb, var(--bad) 28%, var(--cell-bg-dark, var(--bg-card)));
+  }
+}
+:root[data-theme="dark"] td.cell {
   background: var(--cell-bg-dark, var(--bg-card));
   box-shadow: 0 3px 0 var(--cell-line-dark, var(--line)), 0 3px 6px var(--shadow), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
 }
-:root:not([data-theme="light"]) td.cell:active {
+:root[data-theme="dark"] td.cell:active {
   box-shadow: 0 1px 0 var(--cell-line-dark, var(--line)), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
 }
-:root:not([data-theme="light"]) td.cell[data-state="cross"] {
+:root[data-theme="dark"] td.cell[data-state="cross"] {
   background: color-mix(in srgb, var(--bad) 28%, var(--cell-bg-dark, var(--bg-card)));
 }
 td.cell svg { display: inline-block; vertical-align: middle; }
