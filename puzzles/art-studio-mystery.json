@@ -2,6 +2,8 @@
   "id": "art-studio-mystery",
   "kid": "perry",
   "theme": "Art Studio",
+  "title": "🎨 The Art Studio Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella are busy in the art studio, each with a favorite way to create and a favorite color to use. Can you figure out who's painting with what?",
   "characters": [
     {
       "id": "whiskers",

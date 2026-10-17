@@ -2,6 +2,8 @@
   "id": "dance-studio-mystery",
   "kid": "perry",
   "theme": "Dance Studio",
+  "title": "🩰 The Dance Studio Mystery",
+  "intro": "Whiskers, Luna, Oliver, and Bella are getting ready for the big dance recital! Each one has a favorite dance style and plays their own instrument -- can you match them all up?",
   "characters": [
     {
       "id": "whiskers",

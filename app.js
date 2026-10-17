@@ -231,18 +231,19 @@ async function loadPuzzleForDate(date) {
   state.completed = !!(record && record.completed);
   state.attempts = (record && record.attempts) || 0;
 
-  renderPuzzle(entry.theme);
+  renderPuzzle();
 }
 
 // ---------- Puzzle rendering ----------
 
-function renderPuzzle(theme) {
+function renderPuzzle() {
   const host = document.getElementById('puzzleHost');
   host.innerHTML = '';
 
   const puzzle = state.puzzle;
 
   const heroIcon = (puzzle.characters && puzzle.characters[0] && puzzle.characters[0].icon) || 'stargazing';
+  const heroTitle = puzzle.title || puzzle.theme || 'Today\'s Puzzle';
 
   if (state.date !== state.defaultDate) {
     host.appendChild(el('div', { class: 'viewing-past-banner' }, [
@@ -255,8 +256,8 @@ function renderPuzzle(theme) {
     el('div', { class: 'puzzle-hero' }, [
       el('div', { class: 'puzzle-hero-badge', html: iconSvg(heroIcon, 32) }),
       el('div', { class: 'puzzle-hero-text' }, [
-        el('h2', {}, `${theme}`),
-        el('p', { class: 'muted' }, puzzle.theme)
+        el('h2', {}, heroTitle),
+        puzzle.intro ? el('p', { class: 'muted' }, puzzle.intro) : null
       ])
     ]),
     state.completed ? el('div', { class: 'solved-banner' }, '✅ Already solved — tap Reset to play again.') : null,

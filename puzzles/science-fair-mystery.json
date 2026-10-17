@@ -2,6 +2,8 @@
   "id": "science-fair-mystery",
   "kid": "hana",
   "theme": "Science Fair",
+  "title": "🔬 The Science Fair Mystery",
+  "intro": "Hedgehog, Raccoon, Koala, and Fox each built an amazing science fair project -- but the name tags got swapped! Use your detective skills to figure out who made what.",
   "characters": [
     {
       "id": "hedgehog",

@@ -9,6 +9,8 @@ This is the real schema, replacing the illustrative-only example in `puzzle-auth
   "id": "field-day-mystery",
   "kid": "hana",
   "theme": "Field Day",
+  "title": "\ud83c\udfc5 The Field Day Mystery",
+  "intro": "Panda, Rabbit, Elephant, and Otter are racing to Field Day -- but their favorite sports got all mixed up! Can you help match each friend to the sport they love best?",
   "characters": [
     { "id": "panda", "label": "Panda", "icon": "panda" }
   ],
@@ -28,6 +30,8 @@ This is the real schema, replacing the illustrative-only example in `puzzle-auth
 
 ## Field notes
 
+- **`title`** is the fun, kid-facing puzzle name shown as the big headline in the app (e.g. "\ud83c\udfc5 The Field Day Mystery") -- include a leading emoji that fits the puzzle. This is distinct from `theme`, which stays a short plain category label (used in `puzzle-index.json`'s daily pairing, not shown prominently to the kid).
+- **`intro`** is one warm, playful sentence that sets up the puzzle's little story before the clues start (e.g. "Panda, Rabbit, Elephant, and Otter are racing to Field Day..."). Keep it short (1-2 sentences), fun and cute in tone, and specific to the characters/theme -- never generic ("Match the animals to their favorites!"). See `puzzle-authoring-context.md` for the fuller voice guide.
 - **`characters`** are the shared row entities (the "who") — always defined once per puzzle, even when there are multiple linked grids. Every grid's rows are this same character list.
 - **`grids`** is an array, always. A single-grid puzzle (Field Day, Science Fair) has one entry. A linked multi-grid puzzle (Dance Studio, Art Studio) has two or more, each with its own `colCategory`, `cols`, and `solution`, but sharing the same `characters`.
 - **`icon`** values reference keys in the shared `icons.js` library (e.g. `"icon": "panda"`). A puzzle should only use icons that exist there; new icons get added to the library when a new puzzle needs art that doesn't exist yet — not invented inline.

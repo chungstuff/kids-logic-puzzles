@@ -2,6 +2,8 @@
   "id": "field-day-mystery",
   "kid": "hana",
   "theme": "Field Day",
+  "title": "🏅 The Field Day Mystery",
+  "intro": "Panda, Rabbit, Elephant, and Otter are racing to Field Day -- but their favorite sports got all mixed up! Can you help match each friend to the sport they love best?",
   "characters": [
     {
       "id": "panda",
