@@ -46,20 +46,15 @@
   --shadow: rgba(60, 120, 150, 0.12);
 }
 
+/* Dark mode: one clean neutral theme shared by both kids -- pastel hues
+   don't have a good "dark" version, tinting the whole background muddies it.
+   The pink/blue identity still comes through via --primary / --primary-deep / --accent below. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1B1D22; --bg-card: #262932; --ink: #EDEDF2; --ink-soft: #ABABBA; --line: #363945; --shadow: rgba(0,0,0,0.35);
   }
-  :root[data-kid="hana"]:not([data-theme="light"]) {
-    --bg: #241B22; --bg-card: #332733; --ink: #F5E8F0; --ink-soft: #C8A9C2; --line: #4A3A47; --shadow: rgba(0,0,0,0.35);
-  }
-  :root[data-kid="perry"]:not([data-theme="light"]) {
-    --bg: #171F26; --bg-card: #212B35; --ink: #E7F1F7; --ink-soft: #9FB7C4; --line: #2E3C48; --shadow: rgba(0,0,0,0.35);
-  }
 }
 :root[data-theme="dark"] { --bg: #1B1D22; --bg-card: #262932; --ink: #EDEDF2; --ink-soft: #ABABBA; --line: #363945; --shadow: rgba(0,0,0,0.35); }
-:root[data-kid="hana"][data-theme="dark"] { --bg: #241B22; --bg-card: #332733; --ink: #F5E8F0; --ink-soft: #C8A9C2; --line: #4A3A47; }
-:root[data-kid="perry"][data-theme="dark"] { --bg: #171F26; --bg-card: #212B35; --ink: #E7F1F7; --ink-soft: #9FB7C4; --line: #2E3C48; }
 
 * { box-sizing: border-box; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
