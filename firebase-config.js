@@ -5,12 +5,12 @@
 // placeholder values once you've created the web app in the console.
 
 export const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME",
-  projectId: "REPLACE_ME",
-  storageBucket: "REPLACE_ME",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME"
+  apiKey: "AIzaSyDcbGqTRmhH0-NfV9by7PZid2y7a-XVbCU",
+  authDomain: "kids-logic-puzzle.firebaseapp.com",
+  projectId: "kids-logic-puzzle",
+  storageBucket: "kids-logic-puzzle.firebasestorage.app",
+  messagingSenderId: "716894774143",
+  appId: "1:716894774143:web:6819e257c6c0de7c68f04a"
 };
 
 export const isPlaceholder = firebaseConfig.apiKey === "REPLACE_ME";

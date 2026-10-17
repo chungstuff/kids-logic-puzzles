@@ -56,9 +56,17 @@ export async function createCompletionsStore() {
     );
     return new LocalCompletionsStore();
   }
-  const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
-  const { getFirestore, doc, getDoc, setDoc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js');
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  return new FirestoreCompletionsStore(db, doc, getDoc, setDoc, deleteDoc);
+  // If the Firestore SDK can't load (flaky wifi, a restrictive network, Firebase
+  // hiccup, etc.) the whole app must still boot -- fall back to localStorage
+  // rather than leaving the kid staring at a blank screen.
+  try {
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+    const { getFirestore, doc, getDoc, setDoc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js');
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    return new FirestoreCompletionsStore(db, doc, getDoc, setDoc, deleteDoc);
+  } catch (e) {
+    console.warn('[completions-store] Firestore failed to load, falling back to localStorage for this session:', e);
+    return new LocalCompletionsStore();
+  }
 }
