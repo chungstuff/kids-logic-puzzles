@@ -67,21 +67,21 @@ async function boot() {
 function renderKidPicker() {
   root.innerHTML = '';
 
-  const bgIcons = ['panda', 'cat-whiskers', 'ballet', 'painting', 'stargazing', 'basketball'];
-  const bg = el('div', { class: 'kid-picker-bg' },
-    bgIcons.map((key, i) => el('div', { class: `bg-icon bg-icon-${i + 1}`, html: iconSvg(key, 34) }))
-  );
-
   const wrap = el('div', { class: 'kid-picker' }, [
-    bg,
+    el('div', { class: 'kid-picker-glow' }),
     el('h1', {}, "Who's playing?"),
+    el('p', { class: 'kid-picker-sub' }, "Tap your picture to start today's puzzle!"),
     el('div', { class: 'kid-picker-row' }, [
       el('button', { class: 'kid-btn', 'data-kid': 'hana' }, [
-        el('div', { class: 'kid-btn-icon', html: iconSvg('panda', 40) }),
+        el('div', { class: 'kid-badge' }, [
+          el('div', { class: 'kid-btn-icon', html: iconSvg('panda', 48) })
+        ]),
         el('span', {}, 'Hana')
       ]),
       el('button', { class: 'kid-btn', 'data-kid': 'perry' }, [
-        el('div', { class: 'kid-btn-icon', html: iconSvg('cat-whiskers', 40) }),
+        el('div', { class: 'kid-badge' }, [
+          el('div', { class: 'kid-btn-icon', html: iconSvg('cat-whiskers', 48) })
+        ]),
         el('span', {}, 'Perry')
       ])
     ])
