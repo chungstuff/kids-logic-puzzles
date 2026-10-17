@@ -1,0 +1,73 @@
+{
+  "id": "science-fair-mystery",
+  "kid": "hana",
+  "theme": "Science Fair",
+  "characters": [
+    {
+      "id": "hedgehog",
+      "label": "Hedgehog",
+      "icon": "hedgehog"
+    },
+    {
+      "id": "raccoon",
+      "label": "Raccoon",
+      "icon": "raccoon"
+    },
+    {
+      "id": "koala",
+      "label": "Koala",
+      "icon": "koala"
+    },
+    {
+      "id": "fox",
+      "label": "Fox",
+      "icon": "fox"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "experiment",
+      "cols": [
+        {
+          "id": "volcano",
+          "label": "Volcano",
+          "icon": "volcano"
+        },
+        {
+          "id": "magnets",
+          "label": "Magnets",
+          "icon": "magnets"
+        },
+        {
+          "id": "plant-growth",
+          "label": "Plant Growth",
+          "icon": "plant-growth"
+        },
+        {
+          "id": "stargazing",
+          "label": "Stargazing",
+          "icon": "stargazing"
+        }
+      ],
+      "solution": {
+        "hedgehog": "volcano",
+        "raccoon": "magnets",
+        "koala": "stargazing",
+        "fox": "plant-growth"
+      }
+    }
+  ],
+  "clues": [
+    "The friend who loves Magnets is not Fox or Koala.",
+    "Koala's experiment is not Volcano.",
+    "Koala's experiment is not about plants.",
+    "Hedgehog's experiment is not about Magnets.",
+    "Hedgehog's experiment is not about plants either."
+  ],
+  "hints": [
+    "Clue 1 says Magnets isn't Fox's and isn't Koala's. Clue 2 says Koala isn't Volcano. Clue 3 says Koala isn't Plant Growth either. Put all three together — only one experiment is left for Koala!",
+    "Now that Koala's answer is set, look at clue 1 again — it also rules out Magnets for Fox. Combined with clue 4 (Hedgehog isn't Magnets either), who's the only one left who CAN have Magnets?",
+    "Clue 5 rules out Plant Growth for Hedgehog. Between the two experiments Hedgehog has left, which one is it?",
+    "Whatever's left over once Hedgehog, Raccoon, and Koala are filled in is Fox's answer — no new clue needed for that last box!"
+  ]
+}

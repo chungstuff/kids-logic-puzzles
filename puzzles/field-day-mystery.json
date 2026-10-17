@@ -1,0 +1,72 @@
+{
+  "id": "field-day-mystery",
+  "kid": "hana",
+  "theme": "Field Day",
+  "characters": [
+    {
+      "id": "panda",
+      "label": "Panda",
+      "icon": "panda"
+    },
+    {
+      "id": "rabbit",
+      "label": "Rabbit",
+      "icon": "rabbit"
+    },
+    {
+      "id": "elephant",
+      "label": "Elephant",
+      "icon": "elephant"
+    },
+    {
+      "id": "otter",
+      "label": "Otter",
+      "icon": "otter"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "sport",
+      "cols": [
+        {
+          "id": "swimming",
+          "label": "Swimming",
+          "icon": "swimming"
+        },
+        {
+          "id": "soccer",
+          "label": "Soccer",
+          "icon": "soccer"
+        },
+        {
+          "id": "gymnastics",
+          "label": "Gymnastics",
+          "icon": "gymnastics"
+        },
+        {
+          "id": "basketball",
+          "label": "Basketball",
+          "icon": "basketball"
+        }
+      ],
+      "solution": {
+        "panda": "gymnastics",
+        "rabbit": "basketball",
+        "elephant": "soccer",
+        "otter": "swimming"
+      }
+    }
+  ],
+  "clues": [
+    "Otter's favorite sport is Swimming.",
+    "Panda does not play Soccer or Basketball.",
+    "Elephant does not love Basketball.",
+    "Rabbit does not love Soccer."
+  ],
+  "hints": [
+    "Clue 1 just tells you Otter's answer outright — mark a check in Otter's Swimming box to get started.",
+    "Now that Swimming is taken, look at clue 2: Panda can't have Soccer or Basketball, and Swimming's gone too. What's left for Panda?",
+    "Clue 3 says Elephant isn't Basketball. Between Soccer and Basketball, which one can Elephant still have?",
+    "Whatever's left over for Rabbit after the other three are filled in is Rabbit's answer — clue 4 just double-checks it for you."
+  ]
+}

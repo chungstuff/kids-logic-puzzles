@@ -1,0 +1,18 @@
+{
+  "_note": "DEV/TEST SCAFFOLDING ONLY. These date pairings are arbitrary, built just to exercise the shell's date-gating and rendering logic -- they are NOT a real content calendar. Real dated, theme-paired batches get written in Backlog Phase 4. Includes one future-dated entry on purpose, to verify hidden-until-due logic.",
+  "2026-10-03": {
+    "theme": "Field Day & Dance Studio (dev test pairing)",
+    "hana": "puzzles/field-day-mystery.json",
+    "perry": "puzzles/dance-studio-mystery.json"
+  },
+  "2026-10-05": {
+    "theme": "Science Fair & Art Studio (dev test pairing)",
+    "hana": "puzzles/science-fair-mystery.json",
+    "perry": "puzzles/art-studio-mystery.json"
+  },
+  "2026-10-09": {
+    "theme": "Future placeholder -- should stay hidden until this date arrives",
+    "hana": "puzzles/field-day-mystery.json",
+    "perry": "puzzles/dance-studio-mystery.json"
+  }
+}

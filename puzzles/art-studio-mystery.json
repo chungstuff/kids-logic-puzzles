@@ -1,0 +1,107 @@
+{
+  "id": "art-studio-mystery",
+  "kid": "perry",
+  "theme": "Art Studio",
+  "characters": [
+    {
+      "id": "whiskers",
+      "label": "Whiskers",
+      "icon": "cat-whiskers"
+    },
+    {
+      "id": "luna",
+      "label": "Luna",
+      "icon": "cat-luna"
+    },
+    {
+      "id": "oliver",
+      "label": "Oliver",
+      "icon": "cat-oliver"
+    },
+    {
+      "id": "bella",
+      "label": "Bella",
+      "icon": "cat-bella"
+    }
+  ],
+  "grids": [
+    {
+      "colCategory": "medium",
+      "cols": [
+        {
+          "id": "painting",
+          "label": "Painting",
+          "icon": "painting"
+        },
+        {
+          "id": "sculpture",
+          "label": "Sculpture",
+          "icon": "sculpture"
+        },
+        {
+          "id": "drawing",
+          "label": "Drawing",
+          "icon": "drawing"
+        },
+        {
+          "id": "collage",
+          "label": "Collage",
+          "icon": "collage"
+        }
+      ],
+      "solution": {
+        "whiskers": "painting",
+        "luna": "drawing",
+        "oliver": "collage",
+        "bella": "sculpture"
+      }
+    },
+    {
+      "colCategory": "color",
+      "cols": [
+        {
+          "id": "red",
+          "label": "Red",
+          "icon": "red"
+        },
+        {
+          "id": "blue",
+          "label": "Blue",
+          "icon": "blue"
+        },
+        {
+          "id": "yellow",
+          "label": "Yellow",
+          "icon": "yellow"
+        },
+        {
+          "id": "green",
+          "label": "Green",
+          "icon": "green"
+        }
+      ],
+      "solution": {
+        "whiskers": "blue",
+        "luna": "yellow",
+        "oliver": "green",
+        "bella": "red"
+      }
+    }
+  ],
+  "clues": [
+    "Oliver does not love Painting.",
+    "Luna's medium is not Painting, Sculpture, or Collage.",
+    "Bella does not love Blue or Yellow.",
+    "Whoever loves Green also loves Collage.",
+    "Whoever loves Red also loves Sculpture.",
+    "Oliver's color is not Red.",
+    "Luna's color is Yellow."
+  ],
+  "hints": [
+    "Clue 2 rules out three mediums for Luna all at once — whatever's left is her answer.",
+    "Clue 7 gives you Luna's color directly: Yellow. Mark it!",
+    "Clues 4 and 5 don't name a cat — they link a color straight to a medium. Once you know a cat's medium, check whether it matches either of those.",
+    "Clue 3 leaves Bella only two color choices. Try combining it with clue 5 (Red → Sculpture) to see which medium Bella needs to have for Red to work.",
+    "Once Bella and Luna are settled, clues 1 and 6 will help you sort out Whiskers and Oliver for what's left."
+  ]
+}

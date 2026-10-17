@@ -1,0 +1,9 @@
+{
+  "name": "Kids' Logic Puzzles",
+  "short_name": "Logic Puzzles",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F3F6F5",
+  "theme_color": "#2E8C7F",
+  "icons": []
+}
