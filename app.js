@@ -88,6 +88,7 @@ function renderKidPicker() {
 }
 
 async function startApp() {
+  document.documentElement.setAttribute('data-kid', state.kid);
   const availableDates = Object.keys(state.index)
     .filter(d => d !== '_note' && d <= todayISO())
     .sort((a, b) => b.localeCompare(a)); // most recent first
@@ -124,6 +125,7 @@ function renderShell(availableDates) {
 
   document.getElementById('kidSwitch').addEventListener('click', () => {
     localStorage.removeItem('activeKid');
+    document.documentElement.removeAttribute('data-kid');
     renderKidPicker();
   });
 

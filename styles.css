@@ -1,64 +1,103 @@
 :root {
-  --bg: #F3F6F5;
+  /* Neutral default (kid picker screen, before a kid is chosen) */
+  --bg: #F5F5F7;
   --bg-card: #FFFFFF;
-  --ink: #22312D;
-  --ink-soft: #62766F;
-  --primary: #2E8C7F;
-  --primary-deep: #1F6B60;
+  --ink: #33363B;
+  --ink-soft: #7B7E85;
+  --primary: #C8C8D6;
+  --primary-deep: #6E6E82;
   --accent: #E8923C;
-  --line: #DCEAE5;
+  --line: #E2E2E8;
   --good: #3F9A58;
   --bad: #D15B5B;
-  --shadow: rgba(30, 70, 60, 0.1);
+  --shadow: rgba(30, 30, 40, 0.1);
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/* Hana -- soft & pastel */
+:root[data-kid="hana"] {
+  --bg: #FBF4F8;
+  --bg-card: #FFFFFF;
+  --ink: #4A3B50;
+  --ink-soft: #8B7690;
+  --primary: #F3C9DD;
+  --primary-deep: #B8508A;
+  --accent: #FFD98A;
+  --line: #F3DCE8;
+  --good: #5FAE8C;
+  --bad: #D97A7A;
+  --shadow: rgba(160, 90, 130, 0.12);
+}
+
+/* Perry -- cool & fresh */
+:root[data-kid="perry"] {
+  --bg: #F2F8FB;
+  --bg-card: #FFFFFF;
+  --ink: #233240;
+  --ink-soft: #5E7889;
+  --primary: #AEDCF0;
+  --primary-deep: #2E6E8E;
+  --accent: #B49CE0;
+  --line: #CDE8F2;
+  --good: #4FA886;
+  --bad: #D97E7E;
+  --shadow: rgba(60, 120, 150, 0.12);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #17201D; --bg-card: #212B27; --ink: #EAF3F0; --ink-soft: #A9BDB6; --line: #30413B; --shadow: rgba(0,0,0,0.35);
+    --bg: #1B1D22; --bg-card: #262932; --ink: #EDEDF2; --ink-soft: #ABABBA; --line: #363945; --shadow: rgba(0,0,0,0.35);
+  }
+  :root[data-kid="hana"]:not([data-theme="light"]) {
+    --bg: #241B22; --bg-card: #332733; --ink: #F5E8F0; --ink-soft: #C8A9C2; --line: #4A3A47; --shadow: rgba(0,0,0,0.35);
+  }
+  :root[data-kid="perry"]:not([data-theme="light"]) {
+    --bg: #171F26; --bg-card: #212B35; --ink: #E7F1F7; --ink-soft: #9FB7C4; --line: #2E3C48; --shadow: rgba(0,0,0,0.35);
   }
 }
-:root[data-theme="dark"] { --bg: #17201D; --bg-card: #212B27; --ink: #EAF3F0; --ink-soft: #A9BDB6; --line: #30413B; --shadow: rgba(0,0,0,0.35); }
+:root[data-theme="dark"] { --bg: #1B1D22; --bg-card: #262932; --ink: #EDEDF2; --ink-soft: #ABABBA; --line: #363945; --shadow: rgba(0,0,0,0.35); }
+:root[data-kid="hana"][data-theme="dark"] { --bg: #241B22; --bg-card: #332733; --ink: #F5E8F0; --ink-soft: #C8A9C2; --line: #4A3A47; }
+:root[data-kid="perry"][data-theme="dark"] { --bg: #171F26; --bg-card: #212B35; --ink: #E7F1F7; --ink-soft: #9FB7C4; --line: #2E3C48; }
 
 * { box-sizing: border-box; }
 html { scroll-padding-top: env(safe-area-inset-top, 0px); }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
-  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  font-family: 'Mukta', system-ui, -apple-system, sans-serif;
   min-height: 100%; -webkit-font-smoothing: antialiased;
 }
 #app { max-width: 580px; margin: 0 auto; padding: 20px 18px 60px; }
 
 .app-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
-.brand { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1.3rem; color: var(--primary-deep); }
-:root[data-theme="dark"] .brand { color: #8FD9C8; }
+.brand { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 1.3rem; color: var(--primary-deep); }
 .kid-switch {
-  font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.85rem;
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.85rem;
   background: var(--bg-card); border: 1.5px solid var(--line); color: var(--ink);
   border-radius: 999px; padding: 8px 14px; cursor: pointer;
 }
 
 .date-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 18px; -webkit-overflow-scrolling: touch; }
 .date-chip {
-  flex: 0 0 auto; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.82rem;
+  flex: 0 0 auto; font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.82rem;
   background: var(--bg-card); border: 1.5px solid var(--line); color: var(--ink-soft);
   border-radius: 999px; padding: 8px 14px; cursor: pointer; white-space: nowrap;
 }
 .date-chip.active { background: var(--primary-deep); border-color: var(--primary-deep); color: #fff; }
 
 .kid-picker { text-align: center; padding-top: 18vh; }
-.kid-picker h1 { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; color: var(--primary-deep); }
+.kid-picker h1 { font-family: 'Quicksand', sans-serif; font-size: 1.5rem; color: var(--primary-deep); }
 .kid-picker-row { display: flex; gap: 14px; justify-content: center; margin-top: 20px; }
 .kid-btn {
-  font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1.05rem;
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 1.05rem;
   background: var(--bg-card); border: 2px solid var(--line); color: var(--ink);
   border-radius: 16px; padding: 18px 28px; cursor: pointer; min-width: 110px;
 }
 .kid-btn:active { transform: scale(0.97); }
 
 .mystery { background: var(--bg-card); border-radius: 20px; padding: 18px; box-shadow: 0 3px 14px var(--shadow); border: 1px solid var(--line); margin-bottom: 18px; }
-.mystery h2 { font-family: 'Fredoka', sans-serif; font-size: 1.15rem; margin: 0 0 2px; }
+.mystery h2 { font-family: 'Quicksand', sans-serif; font-size: 1.15rem; margin: 0 0 2px; }
 .mystery > p.muted { margin: 0 0 14px; }
 .muted { color: var(--ink-soft); font-size: 0.93rem; }
 
@@ -69,17 +108,17 @@ body {
 
 .clue-list { display: flex; flex-direction: column; gap: 10px; }
 .clue { display: flex; align-items: center; gap: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; }
-.clue .badge { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff; font-family: 'Fredoka', sans-serif; font-weight: 600; display: flex; align-items: center; justify-content: center; font-size: 0.88rem; }
+.clue .badge { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff; font-family: 'Quicksand', sans-serif; font-weight: 600; display: flex; align-items: center; justify-content: center; font-size: 0.88rem; }
 .clue p { margin: 0; font-size: 0.92rem; line-height: 1.4; }
 
 .grid-section { margin-top: 18px; }
-.grid-section h3 { font-family: 'Fredoka', sans-serif; font-size: 1rem; margin: 0 0 10px; }
+.grid-section h3 { font-family: 'Quicksand', sans-serif; font-size: 1rem; margin: 0 0 10px; }
 .grid-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
 table.puzzle-grid { border-collapse: separate; border-spacing: 6px; margin: 0 auto; }
 .col-head { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 50px; }
-.col-head span { font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 0.66rem; color: var(--ink-soft); text-align: center; }
+.col-head span { font-family: 'Quicksand', sans-serif; font-weight: 500; font-size: 0.66rem; color: var(--ink-soft); text-align: center; }
 .row-head { display: flex; align-items: center; justify-content: flex-end; gap: 6px; white-space: nowrap; }
-.row-head span { font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 0.8rem; }
+.row-head span { font-family: 'Quicksand', sans-serif; font-weight: 500; font-size: 0.8rem; }
 th.row-label { text-align: right; padding-right: 6px; }
 
 td.cell {
@@ -93,7 +132,7 @@ td.cell[data-state="check"] { color: var(--good); border-color: var(--good); bac
 td.cell[data-state="cross"] { color: var(--bad); border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, var(--bg-card)); }
 
 .controls { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-button { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 0.92rem; border: none; border-radius: 14px; padding: 12px 18px; cursor: pointer; flex: 1 1 auto; transition: filter 0.15s ease, transform 0.08s ease; }
+button { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.92rem; border: none; border-radius: 14px; padding: 12px 18px; cursor: pointer; flex: 1 1 auto; transition: filter 0.15s ease, transform 0.08s ease; }
 button:active { transform: scale(0.97); }
 .btn-primary { background: var(--primary-deep); color: #fff; }
 .btn-ghost { background: var(--bg-card); color: var(--ink); border: 1.5px solid var(--line); }
