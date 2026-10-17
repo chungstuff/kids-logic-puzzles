@@ -101,34 +101,44 @@ async function startApp() {
     .filter(d => d !== '_note' && d <= todayISO())
     .sort((a, b) => b.localeCompare(a)); // most recent first
 
-  state.date = availableDates.includes(todayISO()) ? todayISO() : (availableDates[0] || null);
-  renderShell(availableDates);
+  // "Home" date: today's puzzle if it exists yet, otherwise the most recent
+  // available one. This is what the app opens to by default, and what the
+  // date picker treats as "back to normal" -- everything else (any older
+  // date) is a deliberate, secondary look-back.
+  state.defaultDate = availableDates.includes(todayISO()) ? todayISO() : (availableDates[0] || null);
+  state.date = state.defaultDate;
+  state.availableDates = availableDates;
+  renderShell();
   if (state.date) await loadPuzzleForDate(state.date);
 }
 
 // ---------- Shell chrome (header, kid switch, date picker) ----------
 
-function renderShell(availableDates) {
+const CALENDAR_ICON = '<svg viewBox="0 0 24 24" width="19" height="19"><rect x="3.5" y="5" width="17" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+const CHEVRON_ICON = '<svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHECK_ICON_SMALL = '<svg viewBox="0 0 24 24" width="15" height="15"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function renderShell() {
   root.innerHTML = '';
 
-  const header = el('div', { class: 'app-header' }, [
-    el('div', { class: 'brand' }, "Kids' Logic Puzzles"),
-    el('button', { class: 'kid-switch', id: 'kidSwitch' }, `Playing as: ${state.kid === 'hana' ? 'Hana' : 'Perry'}`)
-  ]);
+  const kidName = state.kid === 'hana' ? 'Hana' : 'Perry';
+  const kidIcon = state.kid === 'hana' ? 'panda' : 'cat-whiskers';
+  const hasHistory = state.availableDates.length > 1;
 
-  const dateBar = el('div', { class: 'date-bar', id: 'dateBar' },
-    availableDates.length
-      ? availableDates.map(d => el('button', {
-          class: 'date-chip' + (d === state.date ? ' active' : ''),
-          'data-date': d
-        }, formatDateLabel(d)))
-      : [el('p', { class: 'muted' }, 'No puzzles available yet.')]
-  );
+  const header = el('div', { class: 'app-header' }, [
+    el('button', { class: 'avatar-switch', id: 'kidSwitch', 'aria-label': `Playing as ${kidName} -- tap to switch` }, [
+      el('span', { class: 'avatar-switch-badge', html: iconSvg(kidIcon, 24) }),
+      el('span', { class: 'avatar-switch-name' }, kidName),
+      el('span', { class: 'avatar-switch-chevron', html: CHEVRON_ICON })
+    ]),
+    hasHistory
+      ? el('button', { class: 'history-btn', id: 'historyBtn', 'aria-label': 'See past puzzles', html: CALENDAR_ICON })
+      : null
+  ]);
 
   const puzzleHost = el('div', { id: 'puzzleHost' });
 
   root.appendChild(header);
-  root.appendChild(dateBar);
   root.appendChild(puzzleHost);
 
   document.getElementById('kidSwitch').addEventListener('click', () => {
@@ -136,20 +146,67 @@ function renderShell(availableDates) {
     renderKidPicker();
   });
 
-  dateBar.querySelectorAll('.date-chip').forEach(chip => {
-    chip.addEventListener('click', async () => {
-      state.date = chip.dataset.date;
-      dateBar.querySelectorAll('.date-chip').forEach(c => c.classList.toggle('active', c.dataset.date === state.date));
+  const historyBtn = document.getElementById('historyBtn');
+  if (historyBtn) {
+    historyBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDatePanel(header);
+    });
+  }
+}
+
+let datePanelEl = null;
+
+function closeDatePanel() {
+  if (datePanelEl) { datePanelEl.remove(); datePanelEl = null; }
+  document.removeEventListener('click', closeDatePanel);
+  document.removeEventListener('keydown', onDatePanelKey);
+}
+
+function onDatePanelKey(e) {
+  if (e.key === 'Escape') closeDatePanel();
+}
+
+function toggleDatePanel(header) {
+  if (datePanelEl) { closeDatePanel(); return; }
+
+  const panel = el('div', { class: 'date-panel' }, [
+    el('p', { class: 'date-panel-title' }, 'Past puzzles'),
+    el('div', { class: 'date-panel-list' }, state.availableDates.map(d => {
+      const isToday = d === todayISO();
+      const isActive = d === state.date;
+      return el('button', {
+        class: 'date-panel-row' + (isActive ? ' active' : ''),
+        'data-date': d
+      }, [
+        el('span', { class: 'date-panel-label' }, isToday ? `Today — ${formatDateLabel(d)}` : formatDateLabel(d)),
+        isActive ? el('span', { class: 'date-panel-check', html: CHECK_ICON_SMALL }) : null
+      ]);
+    }))
+  ]);
+
+  panel.querySelectorAll('.date-panel-row').forEach(row => {
+    row.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      state.date = row.dataset.date;
+      closeDatePanel();
       await loadPuzzleForDate(state.date);
     });
   });
+
+  header.appendChild(panel);
+  datePanelEl = panel;
+  // Defer listener registration so the click that opened the panel doesn't also close it.
+  setTimeout(() => {
+    document.addEventListener('click', closeDatePanel);
+    document.addEventListener('keydown', onDatePanelKey);
+  }, 0);
 }
 
 function formatDateLabel(iso) {
   const [y, m, d] = iso.split('-').map(Number);
   const dt = new Date(y, m - 1, d);
-  const label = dt.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-  return iso === todayISO() ? `Today · ${label}` : label;
+  return dt.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
 // ---------- Puzzle loading ----------
@@ -186,6 +243,13 @@ function renderPuzzle(theme) {
   const puzzle = state.puzzle;
 
   const heroIcon = (puzzle.characters && puzzle.characters[0] && puzzle.characters[0].icon) || 'stargazing';
+
+  if (state.date !== state.defaultDate) {
+    host.appendChild(el('div', { class: 'viewing-past-banner' }, [
+      el('span', {}, `📅 Viewing ${formatDateLabel(state.date)}`),
+      el('button', { class: 'back-to-today-btn', id: 'backToTodayBtn' }, 'Back to today')
+    ]));
+  }
 
   host.appendChild(el('div', { class: 'mystery' }, [
     el('div', { class: 'puzzle-hero' }, [
@@ -226,6 +290,13 @@ function renderPuzzle(theme) {
   document.getElementById('hintBtn').addEventListener('click', onHint);
   document.getElementById('checkBtn').addEventListener('click', onCheck);
   document.getElementById('resetBtn').addEventListener('click', onReset);
+  const backBtn = document.getElementById('backToTodayBtn');
+  if (backBtn) {
+    backBtn.addEventListener('click', async () => {
+      state.date = state.defaultDate;
+      await loadPuzzleForDate(state.date);
+    });
+  }
 }
 
 function renderGrid(puzzle, grid, gridIdx) {

@@ -65,22 +65,72 @@ body {
 }
 #app { max-width: 580px; margin: 0 auto; padding: 20px 18px 60px; }
 
-.app-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
-.brand { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 1.3rem; color: var(--primary-deep); }
-.kid-switch {
-  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.85rem;
-  background: var(--bg-card); border: 1.5px solid var(--line); color: var(--ink);
-  border-radius: 999px; padding: 8px 14px; cursor: pointer;
-}
+.app-header { position: relative; display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; gap: 8px; }
 
-.date-bar { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 14px; -webkit-overflow-scrolling: touch; }
-.date-chip {
-  flex: 0 0 auto; font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.72rem;
-  background: transparent; border: 1.5px solid var(--line); color: var(--ink-soft);
-  border-radius: 999px; padding: 5px 11px; cursor: pointer; white-space: nowrap;
-  opacity: 0.75; transition: opacity 0.12s ease;
+/* Minimal top bar: a tappable kid avatar (doubles as brand identity + the
+   "switch player" control) on the left, and -- only when there's more than
+   one day of puzzles to choose from -- a small history button on the right.
+   No permanent wordmark, no row of date pills competing for attention. */
+.avatar-switch {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-card); border: 1.5px solid var(--line); color: var(--ink);
+  border-radius: 999px; padding: 5px 14px 5px 5px; cursor: pointer;
+  box-shadow: 0 2px 6px var(--shadow);
 }
-.date-chip.active { background: var(--primary-deep); border-color: var(--primary-deep); color: #fff; opacity: 1; font-weight: 700; }
+.avatar-switch-badge {
+  width: 32px; height: 32px; border-radius: 50%; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.4);
+}
+.avatar-switch-name { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 0.95rem; }
+.avatar-switch-chevron { display: flex; color: var(--ink-soft); }
+
+.history-btn {
+  width: 38px; height: 38px; flex: 0 0 auto; border-radius: 50%; padding: 0;
+  background: var(--bg-card); border: 1.5px solid var(--line); color: var(--ink-soft);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 2px 6px var(--shadow);
+}
+.history-btn:active, .avatar-switch:active { transform: translateY(1px); }
+
+.date-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 50;
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 18px;
+  box-shadow: 0 12px 30px var(--shadow); padding: 10px; min-width: 210px;
+  animation: panelPop 0.16s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes panelPop {
+  0% { transform: scale(0.92) translateY(-6px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.date-panel-title {
+  margin: 4px 8px 8px; font-family: 'Quicksand', sans-serif; font-weight: 700;
+  font-size: 0.78rem; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-soft);
+}
+.date-panel-list { display: flex; flex-direction: column; gap: 2px; max-height: 50vh; overflow-y: auto; }
+.date-panel-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; text-align: left; background: transparent; border: none; cursor: pointer;
+  font-family: 'Mukta', sans-serif; font-weight: 500; font-size: 0.9rem; color: var(--ink);
+  border-radius: 12px; padding: 10px 10px;
+}
+.date-panel-row:active { background: var(--bg); }
+.date-panel-row.active { background: color-mix(in srgb, var(--primary-deep) 12%, transparent); color: var(--primary-deep); font-weight: 700; }
+.date-panel-check { display: flex; color: var(--primary-deep); }
+
+.viewing-past-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg-card)); border: 1px solid var(--accent);
+  border-radius: 14px; padding: 9px 9px 9px 14px; margin-bottom: 12px;
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--ink);
+}
+.back-to-today-btn {
+  font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 0.8rem;
+  background: var(--bg-card); color: var(--primary-deep); border: 1.5px solid var(--primary-deep);
+  border-radius: 999px; padding: 7px 13px; cursor: pointer; flex: 0 0 auto;
+}
+.back-to-today-btn:active { transform: translateY(1px); }
 
 .kid-picker {
   position: relative; text-align: center; padding: 16vh 20px 10vh; overflow: hidden; min-height: 86vh;
