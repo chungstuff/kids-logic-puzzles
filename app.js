@@ -59,13 +59,9 @@ async function boot() {
   const res = await fetch('puzzle-index.json');
   state.index = await res.json();
 
-  const savedKid = localStorage.getItem('activeKid');
-  if (savedKid === 'hana' || savedKid === 'perry') {
-    state.kid = savedKid;
-    await startApp();
-  } else {
-    renderKidPicker();
-  }
+  // Always ask who's playing on a fresh open -- two kids share this app,
+  // so auto-resuming the last player is more often wrong than convenient.
+  renderKidPicker();
 }
 
 function renderKidPicker() {
@@ -81,7 +77,6 @@ function renderKidPicker() {
   wrap.querySelectorAll('.kid-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       state.kid = btn.dataset.kid;
-      localStorage.setItem('activeKid', state.kid);
       await startApp();
     });
   });
@@ -124,7 +119,6 @@ function renderShell(availableDates) {
   root.appendChild(puzzleHost);
 
   document.getElementById('kidSwitch').addEventListener('click', () => {
-    localStorage.removeItem('activeKid');
     document.documentElement.removeAttribute('data-kid');
     renderKidPicker();
   });
