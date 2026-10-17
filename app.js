@@ -185,9 +185,16 @@ function renderPuzzle(theme) {
 
   const puzzle = state.puzzle;
 
+  const heroIcon = (puzzle.characters && puzzle.characters[0] && puzzle.characters[0].icon) || 'stargazing';
+
   host.appendChild(el('div', { class: 'mystery' }, [
-    el('h2', {}, `${theme}`),
-    el('p', { class: 'muted' }, puzzle.theme),
+    el('div', { class: 'puzzle-hero' }, [
+      el('div', { class: 'puzzle-hero-badge', html: iconSvg(heroIcon, 32) }),
+      el('div', { class: 'puzzle-hero-text' }, [
+        el('h2', {}, `${theme}`),
+        el('p', { class: 'muted' }, puzzle.theme)
+      ])
+    ]),
     state.completed ? el('div', { class: 'solved-banner' }, '✅ Already solved — tap Reset to play again.') : null,
     el('div', { class: 'clue-list' }, puzzle.clues.map((clue, i) =>
       el('div', { class: 'clue' }, [
@@ -268,9 +275,18 @@ function renderGrid(puzzle, grid, gridIdx) {
   return wrap;
 }
 
+const CHECK_MARK_SVG = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CROSS_MARK_SVG = '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 6 L18 18 M18 6 L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>';
+
 function applyCellVisual(td, cellState) {
   td.dataset.state = cellState || 'blank';
-  td.textContent = cellState === 'check' ? '✓' : cellState === 'cross' ? '✗' : '';
+  td.innerHTML = cellState === 'check' ? CHECK_MARK_SVG : cellState === 'cross' ? CROSS_MARK_SVG : '';
+  td.classList.remove('pop');
+  if (cellState === 'check' || cellState === 'cross') {
+    // restart the pop animation even if the same state is reapplied
+    void td.offsetWidth;
+    td.classList.add('pop');
+  }
 }
 
 function clearFeedback() {
@@ -316,13 +332,13 @@ async function onCheck() {
   } else if (correct === totalNeeded && wrong === 0) {
     feedback.innerHTML = '🎉 You solved it!';
     feedback.className = 'feedback good';
-    launchConfetti();
     state.completed = true;
     await state.store.set(state.docId, {
       completed: true,
       completedAt: new Date().toISOString(),
       attempts: state.attempts
     });
+    showCelebration();
   } else {
     feedback.innerHTML = `Not quite yet — ${correct} of ${totalNeeded} are right. Keep trying!`;
     feedback.className = 'feedback bad';
@@ -343,9 +359,9 @@ async function onReset() {
   renderPuzzle(entry.theme);
 }
 
-function launchConfetti() {
+function launchConfetti(count = 44) {
   const colors = ['#2E8C7F', '#E8923C', '#4F9BD9', '#8E4C6B'];
-  for (let i = 0; i < 44; i++) {
+  for (let i = 0; i < count; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     piece.style.left = Math.random() * 100 + 'vw';
@@ -355,6 +371,26 @@ function launchConfetti() {
     document.body.appendChild(piece);
     setTimeout(() => piece.remove(), 4000);
   }
+}
+
+function showCelebration() {
+  const kidName = state.kid === 'hana' ? 'Hana' : 'Perry';
+  const kidIcon = state.kid === 'hana' ? 'panda' : 'cat-whiskers';
+
+  const overlay = el('div', { class: 'celebrate-overlay', id: 'celebrateOverlay' }, [
+    el('div', { class: 'celebrate-card' }, [
+      el('div', { class: 'celebrate-badge', html: iconSvg(kidIcon, 54) }),
+      el('h2', {}, 'You solved it!'),
+      el('p', {}, `Great job, ${kidName}! 🎉`),
+      el('button', { class: 'btn-primary celebrate-close', id: 'celebrateClose' }, 'Awesome!')
+    ])
+  ]);
+  document.body.appendChild(overlay);
+  launchConfetti(70);
+
+  const close = () => overlay.remove();
+  document.getElementById('celebrateClose').addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 }
 
 boot();
