@@ -124,6 +124,23 @@ function renderShell() {
   const kidName = state.kid === 'hana' ? 'Hana' : 'Perry';
   const kidIcon = state.kid === 'hana' ? 'panda' : 'cat-whiskers';
   const hasHistory = state.availableDates.length > 1;
+  const dateLabel = formatDateLabel(state.date);
+
+  // The date is always shown in the header, not just when there's history to
+  // browse -- a puzzle's date is useful context on its own (how current is
+  // this?), the way a crossword or news app shows a date even with nothing
+  // to pick from. When there IS history, this same slot becomes the tappable
+  // calendar control (icon + date); when there isn't yet, it's quiet static
+  // text in the same place, deliberately NOT styled like a button, so it
+  // never looks like a dead tap target.
+  const dateEl = hasHistory
+    ? el('button', { class: 'date-chip tappable', id: 'historyBtn', 'aria-label': `See past puzzles -- currently viewing ${dateLabel}` }, [
+        el('span', { class: 'date-chip-icon', html: CALENDAR_ICON }),
+        el('span', {}, dateLabel)
+      ])
+    : el('div', { class: 'date-chip', 'aria-label': `Today's puzzle -- ${dateLabel}` }, [
+        el('span', {}, dateLabel)
+      ]);
 
   const header = el('div', { class: 'app-header' }, [
     el('button', { class: 'avatar-switch', id: 'kidSwitch', 'aria-label': `Playing as ${kidName} -- tap to switch` }, [
@@ -131,9 +148,7 @@ function renderShell() {
       el('span', { class: 'avatar-switch-name' }, kidName),
       el('span', { class: 'avatar-switch-chevron', html: CHEVRON_ICON })
     ]),
-    hasHistory
-      ? el('button', { class: 'history-btn', id: 'historyBtn', 'aria-label': 'See past puzzles', html: CALENDAR_ICON })
-      : null
+    dateEl
   ]);
 
   const puzzleHost = el('div', { id: 'puzzleHost' });
