@@ -112,7 +112,7 @@ async function startApp() {
   if (state.date) await loadPuzzleForDate(state.date);
 }
 
-// ---------- Shell chrome (header, kid switch, date picker) ----------
+// ---------- Shell chrome (header, kid switch, date picker, status pill) ----------
 
 const CALENDAR_ICON = '<svg viewBox="0 0 24 24" width="19" height="19"><rect x="3.5" y="5" width="17" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17" stroke="currentColor" stroke-width="1.7"/><path d="M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
 const CHEVRON_ICON = '<svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -124,23 +124,20 @@ function renderShell() {
   const kidName = state.kid === 'hana' ? 'Hana' : 'Perry';
   const kidIcon = state.kid === 'hana' ? 'panda' : 'cat-whiskers';
   const hasHistory = state.availableDates.length > 1;
-  const dateLabel = formatDateLabel(state.date);
 
-  // The date is always shown in the header, not just when there's history to
-  // browse -- a puzzle's date is useful context on its own (how current is
-  // this?), the way a crossword or news app shows a date even with nothing
-  // to pick from. When there IS history, this same slot becomes the tappable
-  // calendar control (icon + date); when there isn't yet, it's quiet static
-  // text in the same place, deliberately NOT styled like a button, so it
-  // never looks like a dead tap target.
-  const dateEl = hasHistory
-    ? el('button', { class: 'date-chip tappable', id: 'historyBtn', 'aria-label': `See past puzzles -- currently viewing ${dateLabel}` }, [
-        el('span', { class: 'date-chip-icon', html: CALENDAR_ICON }),
-        el('span', {}, dateLabel)
-      ])
-    : el('div', { class: 'date-chip', 'aria-label': `Today's puzzle -- ${dateLabel}` }, [
-        el('span', {}, dateLabel)
-      ]);
+  // Right side of the header is a small cluster, not one control: the status
+  // pill (always present once a puzzle's loaded -- see buildStatusPillEl)
+  // sits next to the calendar-icon button (only present once there's a past
+  // date to browse to -- same hasHistory gate as before this change). The
+  // date itself no longer lives in the header at all; it's a plain-text
+  // eyebrow above the puzzle title instead (see renderPuzzle) -- never a tap
+  // target there, per Chris's 2026-10-17 clarification.
+  const headerRight = el('div', { class: 'header-right' }, [
+    el('div', { id: 'statusPillSlot' }),
+    hasHistory
+      ? el('button', { class: 'calendar-btn', id: 'historyBtn', 'aria-label': 'See past puzzles', html: CALENDAR_ICON })
+      : null
+  ]);
 
   const header = el('div', { class: 'app-header' }, [
     el('button', { class: 'avatar-switch', id: 'kidSwitch', 'aria-label': `Playing as ${kidName} -- tap to switch` }, [
@@ -148,7 +145,7 @@ function renderShell() {
       el('span', { class: 'avatar-switch-name' }, kidName),
       el('span', { class: 'avatar-switch-chevron', html: CHEVRON_ICON })
     ]),
-    dateEl
+    headerRight
   ]);
 
   const puzzleHost = el('div', { id: 'puzzleHost' });
@@ -168,6 +165,8 @@ function renderShell() {
       toggleDatePanel(header);
     });
   }
+
+  refreshStatusPill();
 }
 
 let datePanelEl = null;
@@ -224,6 +223,74 @@ function formatDateLabel(iso) {
   return dt.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
 }
 
+// ---------- Status pill (final: one fixed-size capsule, fill-based) ----------
+
+// Same definition onCheck() already uses: a character-row counts as "filled"
+// in a given grid if ANY of its cells is marked 'check', regardless of
+// whether that mark is actually correct. totalNeeded = characters x grids.
+function computeProgress() {
+  const puzzle = state.puzzle;
+  if (!puzzle) return { status: 'new', percent: 0 };
+  if (state.completed) return { status: 'completed', percent: 100 };
+
+  const totalNeeded = puzzle.characters.length * puzzle.grids.length;
+  let filled = 0;
+  puzzle.grids.forEach((grid, gridIdx) => {
+    puzzle.characters.forEach(ch => {
+      for (const col of grid.cols) {
+        if (state.cellState.get(`${gridIdx}:${ch.id}:${col.id}`) === 'check') { filled++; return; }
+      }
+    });
+  });
+  const percent = totalNeeded ? Math.round((filled / totalNeeded) * 100) : 0;
+  return { status: filled > 0 ? 'in-progress' : 'new', percent };
+}
+
+const CHECK_SVG_WHITE = '<svg viewBox="0 0 24 24" width="12" height="12"><path d="M5 12.5 L10 17.5 L19 6.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// One fixed-size capsule (same bounding box always -- see .status-capsule in
+// styles.css) for all three states. A fill bar grows left-to-right inside it
+// as a real, physical proportion of totalNeeded; the capsule itself never
+// changes shape or size, only how much of it is colored in.
+//
+// Label text/icon is rendered TWICE, stacked exactly on top of itself: a
+// base copy colored for legibility against the neutral empty track, and an
+// identical white copy clipped (via clip-path) to only the filled portion.
+// Wherever the fill has passed underneath, the white copy covers the base
+// copy pixel-for-pixel, so the number (or "New"/"Solved") reads cleanly
+// whether it's sitting on bare track, on the colored fill, or straddling
+// the boundary between them -- verified at 6%, ~44%, 94% and 100% below.
+function buildStatusCapsule({ status, percent }) {
+  const pct = status === 'completed' ? 100 : percent;
+  const isCompleted = status === 'completed';
+  const label = isCompleted ? 'Solved' : (status === 'new' ? 'New' : `${percent}%`);
+  const ariaLabel = isCompleted ? 'Puzzle solved' : (status === 'new' ? 'Not started yet' : `${percent}% filled in`);
+  const checkIcon = isCompleted ? el('span', { class: 'capsule-check', html: CHECK_SVG_WHITE }) : null;
+
+  return el('div', {
+    class: 'status-pill status-capsule' + (isCompleted ? ' is-completed' : status === 'new' ? ' is-new' : ' is-progress'),
+    'aria-label': ariaLabel
+  }, [
+    el('div', { class: 'capsule-fill', style: `width:${pct}%` }),
+    el('span', { class: 'capsule-text capsule-text-base' }, [label]),
+    el('span', { class: 'capsule-text capsule-text-over', style: `clip-path: inset(0 ${100 - pct}% 0 0)` }, [
+      checkIcon,
+      label
+    ].filter(Boolean))
+  ]);
+}
+
+function buildStatusPillEl() {
+  return buildStatusCapsule(computeProgress());
+}
+
+function refreshStatusPill() {
+  const slot = document.getElementById('statusPillSlot');
+  if (!slot) return;
+  slot.innerHTML = '';
+  slot.appendChild(buildStatusPillEl());
+}
+
 // ---------- Puzzle loading ----------
 
 async function loadPuzzleForDate(date) {
@@ -232,6 +299,8 @@ async function loadPuzzleForDate(date) {
   if (!entry || !entry[state.kid]) {
     puzzleHost.innerHTML = '';
     puzzleHost.appendChild(el('p', { class: 'muted' }, 'No puzzle for this date yet.'));
+    state.puzzle = null;
+    refreshStatusPill();
     return;
   }
 
@@ -247,6 +316,7 @@ async function loadPuzzleForDate(date) {
   state.attempts = (record && record.attempts) || 0;
 
   renderPuzzle();
+  refreshStatusPill();
 }
 
 // ---------- Puzzle rendering ----------
@@ -271,6 +341,9 @@ function renderPuzzle() {
     el('div', { class: 'puzzle-hero' }, [
       el('div', { class: 'puzzle-hero-badge', html: iconSvg(heroIcon, 32) }),
       el('div', { class: 'puzzle-hero-text' }, [
+        // Plain static eyebrow -- never a tap target. The calendar-icon
+        // button in the header is still how you get to past puzzles.
+        el('p', { class: 'puzzle-date-eyebrow' }, formatDateLabel(state.date).toUpperCase()),
         el('h2', {}, heroTitle),
         puzzle.intro ? el('p', { class: 'muted' }, puzzle.intro) : null
       ])
@@ -350,6 +423,7 @@ function renderGrid(puzzle, grid, gridIdx) {
         if (next === undefined) state.cellState.delete(key); else state.cellState.set(key, next);
         applyCellVisual(td, next);
         clearFeedback();
+        refreshStatusPill();
       });
       tr.appendChild(td);
     });
@@ -434,6 +508,7 @@ async function onCheck() {
       attempts: state.attempts
     });
   }
+  refreshStatusPill();
 }
 
 async function onReset() {
@@ -444,6 +519,7 @@ async function onReset() {
   await state.store.delete(state.docId);
   const entry = state.index[state.date];
   renderPuzzle(entry.theme);
+  refreshStatusPill();
 }
 
 function launchConfetti(count = 44) {
