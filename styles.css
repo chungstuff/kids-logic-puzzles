@@ -16,6 +16,13 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* If you change any value in this block or the Perry block below, update
+   "Buttons & interaction" / "App identity" in ../design-content-standards.md
+   in this same commit if the change affects what's described there. The
+   color values themselves are NOT mirrored in that doc anymore (it points
+   back here instead) -- a hand-copied color table there went stale for
+   months before anyone caught it. Don't reintroduce that duplication. */
+
 /* Hana -- soft & pastel */
 :root[data-kid="hana"] {
   --bg: #FBF4F8;
