@@ -302,11 +302,22 @@ td.cell[data-state="cross"]:active { box-shadow: 0 1px 0 color-mix(in srgb, var(
    earlier unscoped version of these rules matched in light mode too and,
    because :root:not([data-theme="light"]) td.cell out-specifies
    td.cell[data-state="check"], silently painted the checkmark's green
-   background back to white. */
+   background back to white.
+   IMPORTANT, found 2026-10-18: scoping to dark mode wasn't enough on its
+   own -- the ring+background rule below was still unconditional on EVERY
+   td.cell regardless of state, which meant it out-specified
+   td.cell[data-state="check"] inside dark mode too, same bug, same cause,
+   just the half of it that only shows up once you're actually in dark
+   mode. The ring (box-shadow) is fine applying to every state -- that's
+   the point, per the paragraph above -- but the background swap must be
+   scoped to [data-state="blank"] only, so check/cross keep their own
+   green/red background and only get the ring added on top. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) td.cell {
-    background: var(--cell-bg-dark, var(--bg-card));
     box-shadow: 0 3px 0 var(--cell-line-dark, var(--line)), 0 3px 6px var(--shadow), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
+  }
+  :root:not([data-theme="light"]) td.cell[data-state="blank"] {
+    background: var(--cell-bg-dark, var(--bg-card));
   }
   :root:not([data-theme="light"]) td.cell:active {
     box-shadow: 0 1px 0 var(--cell-line-dark, var(--line)), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
@@ -316,8 +327,10 @@ td.cell[data-state="cross"]:active { box-shadow: 0 1px 0 color-mix(in srgb, var(
   }
 }
 :root[data-theme="dark"] td.cell {
-  background: var(--cell-bg-dark, var(--bg-card));
   box-shadow: 0 3px 0 var(--cell-line-dark, var(--line)), 0 3px 6px var(--shadow), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));
+}
+:root[data-theme="dark"] td.cell[data-state="blank"] {
+  background: var(--cell-bg-dark, var(--bg-card));
 }
 :root[data-theme="dark"] td.cell:active {
   box-shadow: 0 1px 0 var(--cell-line-dark, var(--line)), inset 0 0 0 1.5px var(--cell-line-dark, var(--line));

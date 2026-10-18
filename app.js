@@ -225,24 +225,27 @@ function formatDateLabel(iso) {
 
 // ---------- Status pill (final: one fixed-size capsule, fill-based) ----------
 
-// Same definition onCheck() already uses: a character-row counts as "filled"
-// in a given grid if ANY of its cells is marked 'check', regardless of
-// whether that mark is actually correct. totalNeeded = characters x grids.
+// Deliberately NOT the same definition onCheck() uses. An earlier version
+// counted a row as "filled" the moment it had any single checked cell --
+// which meant a kid could tap exactly one box per row (no elimination, no
+// thought) and see the pill claim 100%. Caught in real use on 2026-10-18:
+// a row with two conflicting checks and two still-blank cells still read
+// as "done."
+//
+// This version is a plain box-filler: every cell the kid has marked at all
+// (check OR cross) counts, divided by every cell in the puzzle (across all
+// grids). It never looks at grid.solution, so it can't leak correctness the
+// way a solved-based percent would -- but it also can't be faked by a
+// handful of careless taps, since reaching a high percent means having
+// actually gone through the grid, not just picked one answer per row.
 function computeProgress() {
   const puzzle = state.puzzle;
   if (!puzzle) return { status: 'new', percent: 0 };
   if (state.completed) return { status: 'completed', percent: 100 };
 
-  const totalNeeded = puzzle.characters.length * puzzle.grids.length;
-  let filled = 0;
-  puzzle.grids.forEach((grid, gridIdx) => {
-    puzzle.characters.forEach(ch => {
-      for (const col of grid.cols) {
-        if (state.cellState.get(`${gridIdx}:${ch.id}:${col.id}`) === 'check') { filled++; return; }
-      }
-    });
-  });
-  const percent = totalNeeded ? Math.round((filled / totalNeeded) * 100) : 0;
+  const totalBoxes = puzzle.grids.reduce((sum, grid) => sum + puzzle.characters.length * grid.cols.length, 0);
+  const filled = state.cellState.size; // every marked cell, check or cross -- blank cells are never stored in the map
+  const percent = totalBoxes ? Math.round((filled / totalBoxes) * 100) : 0;
   return { status: filled > 0 ? 'in-progress' : 'new', percent };
 }
 
