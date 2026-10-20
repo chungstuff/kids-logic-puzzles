@@ -381,7 +381,7 @@ function renderPuzzle() {
 
   document.getElementById('hintBtn').addEventListener('click', onHint);
   document.getElementById('checkBtn').addEventListener('click', onCheck);
-  document.getElementById('resetBtn').addEventListener('click', onReset);
+  document.getElementById('resetBtn').addEventListener('click', showResetConfirm);
   const backBtn = document.getElementById('backToTodayBtn');
   if (backBtn) {
     backBtn.addEventListener('click', async () => {
@@ -523,6 +523,44 @@ async function onReset() {
   const entry = state.index[state.date];
   renderPuzzle(entry.theme);
   refreshStatusPill();
+}
+
+// Added 2026-10-19: Reset used to wipe progress on a single tap, no
+// confirmation at all -- real risk of an accidental tap erasing real
+// progress. This is a cute, non-scary confirm step (see .confirm-card in
+// styles.css for why it reuses the celebrate overlay's visual language
+// instead of a native confirm()), not a warning dialog -- Reset has never
+// been styled as alarming here and this doesn't change that.
+function showResetConfirm() {
+  const overlay = el('div', {
+    class: 'confirm-overlay', id: 'resetConfirmOverlay',
+    role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Clear the board?'
+  }, [
+    el('div', { class: 'confirm-card' }, [
+      el('div', { class: 'confirm-icon' }, '🧹'),
+      el('h2', {}, 'Clear the board?'),
+      el('p', {}, "Poof! All your checks and crosses will disappear and you'll start fresh."),
+      el('div', { class: 'confirm-actions' }, [
+        el('button', { class: 'btn-ghost', id: 'resetCancelBtn' }, 'Never mind!'),
+        el('button', { class: 'btn-primary', id: 'resetConfirmBtn' }, 'Yes, clear it!')
+      ])
+    ])
+  ]);
+  document.body.appendChild(overlay);
+
+  const close = () => {
+    overlay.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = (e) => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', onKey);
+
+  document.getElementById('resetCancelBtn').addEventListener('click', close);
+  document.getElementById('resetConfirmBtn').addEventListener('click', async () => {
+    close();
+    await onReset();
+  });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 }
 
 function launchConfetti(count = 44) {
