@@ -45,6 +45,11 @@ const state = {
   cellState: new Map(),      // `${gridIdx}:${charId}:${colId}` -> 'check' | 'cross'
   attempts: 0,
   completed: false,
+  completedAt: null,         // ISO string once solved, else null -- kept in state (not just
+                              // written inline at solve time) because every store.set() call
+                              // overwrites the whole document (see completions-store.js: no
+                              // Firestore {merge:true}, no partial localStorage update), so any
+                              // write that doesn't carry it forward would silently erase it.
   store: null,               // completions store (local or Firestore)
   hintStep: 0
 };
@@ -294,6 +299,67 @@ function refreshStatusPill() {
   slot.appendChild(buildStatusPillEl());
 }
 
+// ---------- Progress persistence ----------
+//
+// Added 2026-10-20: state.cellState used to be purely in-memory, reset to a
+// blank Map on every load regardless of what was stored -- a kid who closed
+// the app mid-puzzle lost every mark, and reopening an already-solved puzzle
+// showed a blank grid with just the banner, not their actual answers.
+//
+// store.set() always overwrites the whole document (confirmed in
+// completions-store.js -- no Firestore {merge:true}, no partial localStorage
+// update), so every write here carries the FULL current progress --
+// completed, completedAt, attempts, and marks -- never a partial object.
+// completedAt lives in state (not just written inline at solve time) for the
+// same reason: a later write that didn't know about it would erase it.
+
+function serializeCellState() {
+  return Object.fromEntries(state.cellState);
+}
+
+function deserializeCellState(marks) {
+  return new Map(Object.entries(marks || {}));
+}
+
+function buildProgressDoc() {
+  return {
+    completed: state.completed,
+    completedAt: state.completedAt,
+    attempts: state.attempts,
+    marks: serializeCellState()
+  };
+}
+
+let saveDebounceTimer = null;
+
+// Debounced: called on every single cell tap, so this avoids a store write
+// per tap. onCheck()/onReset() bypass this and flush immediately instead,
+// since those are already deliberate, infrequent actions.
+function scheduleSave() {
+  clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = setTimeout(flushSave, 500);
+}
+
+async function flushSave() {
+  clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = null;
+  if (!state.docId) return;
+  await state.store.set(state.docId, buildProgressDoc());
+}
+
+// Best-effort safety net for "kid closes the browser/switches apps mid-tap"
+// -- a debounced save still pending when the page is hidden/unloaded would
+// otherwise just be lost. Fire-and-forget: can't reliably await inside these
+// events, but store.set() is itself best-effort (see LocalCompletionsStore),
+// so this matches the existing reliability bar rather than overpromising.
+function flushPendingSaveIfAny() {
+  if (saveDebounceTimer) flushSave();
+}
+window.addEventListener('pagehide', flushPendingSaveIfAny);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) flushPendingSaveIfAny();
+});
+
 // ---------- Puzzle loading ----------
 
 async function loadPuzzleForDate(date) {
@@ -307,16 +373,25 @@ async function loadPuzzleForDate(date) {
     return;
   }
 
+  // Cancel any save still pending for whatever puzzle was showing before --
+  // it belongs to the old docId, not this one, and state.docId is about to
+  // change out from under it.
+  clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = null;
+
   const res = await fetch(entry[state.kid]);
   state.puzzle = await res.json();
-  state.cellState = new Map();
   state.hintStep = 0;
-  state.attempts = 0;
   state.docId = `${state.kid}-${date}`;
 
   const record = await state.store.get(state.docId);
   state.completed = !!(record && record.completed);
+  state.completedAt = (record && record.completedAt) || null;
   state.attempts = (record && record.attempts) || 0;
+  // Restore marks from the stored document (missing entirely on a doc saved
+  // before this change -- deserializeCellState(undefined) is just an empty
+  // Map, identical to the old always-blank behavior).
+  state.cellState = deserializeCellState(record && record.marks);
 
   renderPuzzle();
   refreshStatusPill();
@@ -427,6 +502,7 @@ function renderGrid(puzzle, grid, gridIdx) {
         applyCellVisual(td, next);
         clearFeedback();
         refreshStatusPill();
+        scheduleSave();
       });
       tr.appendChild(td);
     });
@@ -497,28 +573,28 @@ async function onCheck() {
     feedback.innerHTML = '🎉 You solved it!';
     feedback.className = 'feedback good';
     state.completed = true;
-    await state.store.set(state.docId, {
-      completed: true,
-      completedAt: new Date().toISOString(),
-      attempts: state.attempts
-    });
+    state.completedAt = new Date().toISOString();
+    await flushSave(); // carries marks + completed + completedAt + attempts together
     showCelebration();
   } else {
     feedback.innerHTML = `Not quite yet — ${correct} of ${totalNeeded} are right. Keep trying!`;
     feedback.className = 'feedback bad';
-    await state.store.set(state.docId, {
-      completed: false,
-      attempts: state.attempts
-    });
+    await flushSave();
   }
   refreshStatusPill();
 }
 
 async function onReset() {
+  // Cancel any debounced save first -- otherwise a save scheduled just
+  // before Reset could fire after store.delete() and silently recreate the
+  // very document this is meant to erase.
+  clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = null;
   state.cellState = new Map();
   state.hintStep = 0;
   state.attempts = 0;
   state.completed = false;
+  state.completedAt = null;
   await state.store.delete(state.docId);
   const entry = state.index[state.date];
   renderPuzzle(entry.theme);
