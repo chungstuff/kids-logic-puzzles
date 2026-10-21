@@ -32,18 +32,42 @@ class FirestoreCompletionsStore {
   constructor(db, doc, getDoc, setDoc, deleteDoc) {
     this.db = db; this.doc = doc; this.getDoc = getDoc; this.setDoc = setDoc; this.deleteDoc = deleteDoc;
   }
+  // Added 2026-10-20: a real network hiccup (wifi handoff, dead zone, phone
+  // waking up) hitting mid-call used to throw straight out of these methods
+  // with nothing catching it -- a failed get() during puzzle load left the
+  // kid staring at a header with no puzzle below it; a failed set() during
+  // a solve skipped the celebration and the status-pill update entirely,
+  // since those run after the save in onCheck(). Same fail-soft shape as
+  // LocalCompletionsStore above: a failed read degrades to "no record"
+  // (exactly how a first-ever visit already looks, nothing new), a failed
+  // write is swallowed -- the tapped-cell visuals are already correct on
+  // screen regardless of whether the save behind them landed, so there's
+  // nothing else useful to do with that error here.
   async get(docId) {
-    const ref = this.doc(this.db, 'completions', docId);
-    const snap = await this.getDoc(ref);
-    return snap.exists() ? snap.data() : null;
+    try {
+      const ref = this.doc(this.db, 'completions', docId);
+      const snap = await this.getDoc(ref);
+      return snap.exists() ? snap.data() : null;
+    } catch (e) {
+      console.warn('[completions-store] get failed, treating as no saved record:', e);
+      return null;
+    }
   }
   async set(docId, data) {
-    const ref = this.doc(this.db, 'completions', docId);
-    await this.setDoc(ref, data);
+    try {
+      const ref = this.doc(this.db, 'completions', docId);
+      await this.setDoc(ref, data);
+    } catch (e) {
+      console.warn('[completions-store] set failed, this save was not persisted:', e);
+    }
   }
   async delete(docId) {
-    const ref = this.doc(this.db, 'completions', docId);
-    await this.deleteDoc(ref);
+    try {
+      const ref = this.doc(this.db, 'completions', docId);
+      await this.deleteDoc(ref);
+    } catch (e) {
+      console.warn('[completions-store] delete failed:', e);
+    }
   }
 }
 
